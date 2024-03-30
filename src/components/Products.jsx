@@ -1,4 +1,4 @@
-function products() {
+function Products() {
   return (
     <div>
       <h5>Products-List</h5>
@@ -6,4 +6,4 @@ function products() {
   );
 }
 
-export default products;
+export default Products;
