@@ -1,26 +1,8 @@
 import React from "react";
+import Heading from "../Reusales/Heading";
+import Button from "../Reusales/Button";
 
-const Button = ({ text, bgColor, textColor, handler = () => {} }) => {
-  return (
-    <button
-      onClick={handler}
-      className={`${bgColor} ${textColor} cursor-pointer hover:scale-105 duration-300 py-2 px-8 rounded-full relative z-10`}
-    >
-      {text}
-    </button>
-  );
-};
-
-const Heading = ({ title, subtitle }) => {
-  return (
-    <div className="text-center mb-10 max-w-[600px] mx-auto space-y-2">
-      <h1 className="text-3xl font-bold lg:text-4xl">{title}</h1>
-      <p className="text-xs text-gray-400">{subtitle}</p>
-    </div>
-  );
-};
-
-const Category = () => {
+const CategoryCard = () => {
   return (
     <div className="py-8">
       <div className="container">
@@ -54,12 +36,4 @@ const Category = () => {
   );
 };
 
-function CategoryList() {
-  return (
-    <div style={{ height: "1000px", marginTop: "150px" }}>
-      <Category />
-    </div>
-  );
-}
-
-export default CategoryList;
+export default CategoryCard;
