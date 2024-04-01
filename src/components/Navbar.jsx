@@ -16,13 +16,13 @@ const DropdownLinks = [
 
 const Navbar = () => {
   return (
-    <div className="bg-white dark:bg-gray-900 dark:text-white duration-200 relative z-40 mb-10 ">
+    <div className="bg-white dark:bg-gray-900 dark:text-white duration-200 relative z-50 mb-10 ">
       <div className="py-4">
         <div className="container flex justify-between items-center">
           {/* Logo and Links section */}
           <div className="flex items-center gap-4">
             <button
-              className="text-primary font-semibold tracking-widest text-2xl uppercase sm:text-3xl"
+              className="text-primary font-semibold tracking-widest text-2xl uppercase sm:text-4xl"
               onClick={() => {
                 /* Add your click event handler here */
               }}
@@ -58,7 +58,7 @@ const Navbar = () => {
           <div className="flex items-center gap-6">
             {/* Dropdown for Quick Links */}
             <div className="relative cursor-pointer group">
-              <button className="flex items-center gap-[4px] font-semibold text-gray-500 dark:hover:text-white py-2">
+              <button className="flex items-center gap-[4px] font-semibold text-gray-500 dark:hover:text-white py-2 text-2xl">
                 Quick Links
                 <span>
                   <FaCaretDown className="group-hover:rotate-180 duration-300" />
@@ -71,7 +71,7 @@ const Navbar = () => {
                   {DropdownLinks.map((data, index) => (
                     <li key={index}>
                       <a
-                        className="text-gray-500 dark:hover:text-white duration-200 inline-block w-full p-2 hover:bg-primary/20 rounded-md font-semibold"
+                        className="text-gray-500 dark:hover:text-white duration-200 inline-block w-full p-2 hover:bg-primary/20 rounded-md font-semibold text-xl "
                         href={data.link}
                       >
                         {data.name}
@@ -86,14 +86,14 @@ const Navbar = () => {
             <div>
               <a
                 href="/login"
-                className="text-gray-500 dark:hover:text-white font-semibold"
+                className="text-gray-500 dark:hover:text-white font-semibold text-2xl"
               >
                 Login
               </a>
               <span className="text-gray-500 dark:text-white mx-2">|</span>
               <a
                 href="/register"
-                className="text-gray-500 dark:hover:text-white font-semibold"
+                className="text-gray-500 dark:hover:text-white font-semibold text-2xl"
               >
                 Register
               </a>
