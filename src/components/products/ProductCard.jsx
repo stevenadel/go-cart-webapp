@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../Reusales/Button";
+import Button from "../reusables/Button";
 
 const ProductCard = ({ data }) => {
   return (
