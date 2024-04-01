@@ -1,7 +1,11 @@
 import React from "react";
 
 function CategoryList() {
-  return <h5>Category List</h5>;
+  return (
+    <div style={{ height: "1000px" }}>
+      <h5>Category List</h5>
+    </div>
+  );
 }
 
 export default CategoryList;

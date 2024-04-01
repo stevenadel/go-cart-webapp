@@ -1,4 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./styles/tailwind.css";
+import "./styles/App.css";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -8,17 +11,18 @@ import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import Admin from "./pages/Admin";
 import PageNotFound from "./pages/PageNotFound";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <>
-      <div>Nav-bar component</div>
+      <Navbar />
       <BrowserRouter>
         <Routes>
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="product" element={<Profile />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="wishlist" element={<Wishlist />} />
           <Route path="cart" element={<Cart />} />
           <Route path="orders" element={<Orders />} />
