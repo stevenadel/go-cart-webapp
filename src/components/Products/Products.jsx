@@ -49,7 +49,7 @@ const ProductsData = [
 function Products() {
   return (
     <div>
-      <ProductCard data={ProductsData} />;
+      <ProductCard data={ProductsData} />
     </div>
   );
 }
