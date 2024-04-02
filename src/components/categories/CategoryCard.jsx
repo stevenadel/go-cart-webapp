@@ -1,6 +1,6 @@
 import React from "react";
-import Heading from "../Reusales/Heading";
-import Button from "../Reusales/Button";
+import Heading from "../reusables/Heading";
+import Button from "../reusables/Button";
 
 const CategoryCard = () => {
   return (
