@@ -1,5 +1,7 @@
 import React from "react";
 import { FaCaretDown } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 const DropdownLinks = [
   {
@@ -96,6 +98,13 @@ const Navbar = () => {
                 className="text-gray-500 dark:hover:text-white font-semibold text-2xl"
               >
                 Register
+              </a>
+
+              <a
+                href="/register"
+                className=" ml-5 text-gray-500 dark:hover:text-white font-semibold text-2xl"
+              >
+                <FontAwesomeIcon icon={faCartShopping} />
               </a>
             </div>
           </div>
