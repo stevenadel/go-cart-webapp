@@ -1,11 +1,31 @@
-import { useForm } from 'react-hook-form';
-import Heading from '../components/reusables/Heading';
+import { useForm } from "react-hook-form";
+import Heading from "../components/reusables/Heading";
+import axios from "axios";
 
 function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const validData = {
+    username: "esraa",
+    password: "@12345678ASrr",
+  };
 
   const onSubmit = (data) => {
-    console.log(data);
+    const url = import.meta.env.VITE_API_URL + "/login";
+    // console.log(data);
+    // console.log(url);
+    axios
+      .post(url, data)
+      .then((response) => {
+        console.log("response", response);
+        console.log("Token:", response.data.token);
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+      });
   };
 
   return (
@@ -15,18 +35,48 @@ function Login() {
         <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
           <input
             type="text"
-            {...register("username", { required: "Username is required", minLength: { value: 5, message: "Username must be at least 5 characters long" }, maxLength: { value: 20, message: "Username must not be longer than 20 characters long" }, pattern: { value: /^[a-zA-Z0-9]+$/, message: "Username must contain only alphanumeric characters" } })}
+            {...register("username", {
+              required: "Username is required",
+              minLength: {
+                value: 5,
+                message: "Username must be at least 5 characters long",
+              },
+              maxLength: {
+                value: 20,
+                message: "Username must not be longer than 20 characters long",
+              },
+              pattern: {
+                value: /^[a-zA-Z0-9]+$/,
+                message: "Username must contain only alphanumeric characters",
+              },
+            })}
             className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             placeholder="Username"
           />
-          {errors.username && (<p className="mt-2 text-red-500 text-xs">{ errors.username.message }</p>)}
+          {errors.username && (
+            <p className="mt-2 text-red-500 text-xs">
+              {errors.username.message}
+            </p>
+          )}
           <input
             type="password"
-            {...register("password", { required: "Password is required", pattern: {value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/i, message: "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long" } })}
+            {...register("password", {
+              required: "Password is required",
+              pattern: {
+                value:
+                  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/i,
+                message:
+                  "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long",
+              },
+            })}
             className="mt-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             placeholder="Password"
           />
-          {errors.password && (<p className="mt-2 text-red-500 text-xs">{ errors.password.message }</p>)}
+          {errors.password && (
+            <p className="mt-2 text-red-500 text-xs">
+              {errors.password.message}
+            </p>
+          )}
           <div className="mt-6">
             <button
               type="submit"
@@ -39,6 +89,6 @@ function Login() {
       </div>
     </div>
   );
-};
+}
 
 export default Login;
