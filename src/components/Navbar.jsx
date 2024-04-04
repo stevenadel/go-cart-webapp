@@ -2,6 +2,7 @@ import React from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const DropdownLinks = [
   {
@@ -29,7 +30,7 @@ const Navbar = () => {
                 /* Add your click event handler here */
               }}
             >
-              Go-Cart
+              <Link to="">Go-Cart</Link>
             </button>
             {/* Menu Items */}
             <div className="hidden lg:block">
@@ -41,12 +42,12 @@ const Navbar = () => {
                     <ul className="space-y-2">
                       {DropdownLinks.map((data, index) => (
                         <li key={index}>
-                          <a
+                          <Link
                             className="text-gray-500 dark:hover:text-white duration-200 inline-block w-full p-2 hover:bg-primary/20 rounded-md font-semibold"
-                            href={data.link}
+                            to={data.link}
                           >
                             {data.name}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -72,12 +73,12 @@ const Navbar = () => {
                 <ul className="space-y-2">
                   {DropdownLinks.map((data, index) => (
                     <li key={index}>
-                      <a
+                      <Link
                         className="text-gray-500 dark:hover:text-white duration-200 inline-block w-full p-2 hover:bg-primary/20 rounded-md font-semibold text-xl "
-                        href={data.link}
+                        to={data.link}
                       >
                         {data.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -86,26 +87,26 @@ const Navbar = () => {
 
             {/* Login and Register Links */}
             <div>
-              <a
-                href="/login"
+              <Link
+                to="/login"
                 className="text-gray-500 dark:hover:text-white font-semibold text-2xl"
               >
                 Login
-              </a>
+              </Link>
               <span className="text-gray-500 dark:text-white mx-2">|</span>
-              <a
-                href="/register"
+              <Link
+                to="/register"
                 className="text-gray-500 dark:hover:text-white font-semibold text-2xl"
               >
                 Register
-              </a>
+              </Link>
 
-              <a
-                href="/register"
+              <Link
+                to="/cart"
                 className=" ml-5 text-gray-500 dark:hover:text-white font-semibold text-2xl"
               >
                 <FontAwesomeIcon icon={faCartShopping} />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
