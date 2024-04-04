@@ -2,6 +2,7 @@ import CategoryList from "../components/categories/CategoryList";
 import Footer from "../components/Footer";
 import Heading from "../components/reusables/Heading";
 import Products from "../components/products/Products";
+import Services from "../components/services";
 
 function Home() {
   return (
@@ -10,6 +11,7 @@ function Home() {
         <Heading title="Our Products" subtitle={"Explore Our Products"} />
         <Products />
       </div>
+      <Services />
       <div id="categorySection">
         <CategoryList />
       </div>
