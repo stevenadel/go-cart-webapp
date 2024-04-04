@@ -6,7 +6,7 @@ const tailwindConfig = {
     extend: {
       colors: {
         primary: "#f42c37",
-        secondary: "#f42c37",
+        secondary: "#ed5a62",
         brandYellow: "#fdc62e",
         brandGreen: "#2dcc6f",
         brandBlue: "#1376f4",
