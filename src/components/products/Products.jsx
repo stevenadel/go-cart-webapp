@@ -1,5 +1,6 @@
 import React from "react";
 import ProductCard from "./ProductCard";
+import { Link } from "react-router-dom";
 
 const ProductsData = [
   {

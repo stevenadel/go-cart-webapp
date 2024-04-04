@@ -3,6 +3,7 @@ import { FaCaretDown } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { IoMdSearch } from "react-icons/io";
 
 const DropdownLinks = [
   {
@@ -30,7 +31,7 @@ const Navbar = () => {
                 /* Add your click event handler here */
               }}
             >
-              <Link to="">Go-Cart</Link>
+              <Link to="/">Go-Cart</Link>
             </button>
             {/* Menu Items */}
             <div className="hidden lg:block">
@@ -59,6 +60,11 @@ const Navbar = () => {
 
           {/* Navbar Right section */}
           <div className="flex items-center gap-6">
+            <div className="relative group hidden sm:block">
+              <input type="text" placeholder="Search" className="search-bar" />
+              <IoMdSearch className="text-xl text-gray-600 group-hover:text-primary dark:text-gray-400 absolute top-1/2 -translate-y-1/2 right-3 duration-200" />
+            </div>
+
             {/* Dropdown for Quick Links */}
             <div className="relative cursor-pointer group">
               <button className="flex items-center gap-[4px] font-semibold text-gray-500 dark:hover:text-white py-2 text-2xl">
@@ -86,13 +92,14 @@ const Navbar = () => {
             </div>
 
             {/* Login and Register Links */}
-            <div>
+            <div className="flex items-center">
               <Link
                 to="/login"
                 className="text-gray-500 dark:hover:text-white font-semibold text-2xl"
               >
                 Login
               </Link>
+              {/* <Link to="login">To login</Link> */}
               <span className="text-gray-500 dark:text-white mx-2">|</span>
               <Link
                 to="/register"
@@ -100,7 +107,6 @@ const Navbar = () => {
               >
                 Register
               </Link>
-
               <Link
                 to="/cart"
                 className=" ml-5 text-gray-500 dark:hover:text-white font-semibold text-2xl"
