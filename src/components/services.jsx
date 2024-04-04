@@ -36,7 +36,7 @@ const ServiceData = [
 const Services = () => {
   return (
     <div>
-      <div className="container m-14 md:my-20">
+      <div className="container m-14 md:my-20 ml-4 mt-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 gap-y-8">
           {ServiceData.map((data) => (
             <div className="flex flex-col items-start sm:flex-row gap-4">
