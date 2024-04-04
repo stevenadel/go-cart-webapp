@@ -19,6 +19,12 @@ const DropdownLinks = [
 ];
 
 const Navbar = () => {
+  const handleSearchClick = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchData = urlParams.get('q');
+        console.log("Search Data:", searchData);
+    };
+  
   return (
     <div className="bg-white dark:bg-gray-900 dark:text-white duration-200 relative z-50 mb-10 ">
       <div className="py-4">
@@ -62,7 +68,9 @@ const Navbar = () => {
           <div className="flex items-center gap-6">
             <div className="relative group hidden sm:block">
               <input type="text" placeholder="Search" className="search-bar" />
-              <IoMdSearch className="text-xl text-gray-600 group-hover:text-primary dark:text-gray-400 absolute top-1/2 -translate-y-1/2 right-3 duration-200" />
+              <IoMdSearch className="text-xl text-gray-600 group-hover:text-primary dark:text-gray-400 absolute top-1/2 -translate-y-1/2 right-3 duration-200" 
+                    onClick={handleSearchClick}
+              />
             </div>
 
             {/* Dropdown for Quick Links */}
