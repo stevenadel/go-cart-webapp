@@ -4,7 +4,7 @@ import Button from "../reusables/Button";
 const ProductCard = ({ data }) => {
   return (
     <div className="mb-10">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 place-items-center mt-10 px-8 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 place-items-center mt-10 px-8 ">
         {/* card section */}
         {data.map((data) => (
           <div
