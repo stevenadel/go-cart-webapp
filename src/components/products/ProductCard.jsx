@@ -29,7 +29,7 @@ const ProductCard = ({ item }) => {
           </div>
         </div>
         <div className="leading-7">
-          <h2 className="font-semibold">{item.title}</h2>
+          <h2 className="font-semibold">{item.name}</h2>
           <h2 className="font-bold">${item.price}</h2>
         </div>
       </div>
