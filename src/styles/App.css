@@ -5,6 +5,18 @@
   text-align: center;
 }
 
+#productsSection {
+  margin-bottom: 150px;
+  margin-top: 70px;
+}
+
+.profile-pic {
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  border-radius: 50%; /* Make it round */
+  margin-left: 30px; /* Adjust as needed */
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

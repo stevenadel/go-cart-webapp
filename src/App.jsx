@@ -3,6 +3,7 @@ import "./styles/tailwind.css";
 import "./styles/App.css";
 
 import Home from "./pages/Home";
+import Products from "./pages/products";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
@@ -12,6 +13,7 @@ import Orders from "./pages/Orders";
 import Admin from "./pages/Admin";
 import PageNotFound from "./pages/PageNotFound";
 import Navbar from "./components/Navbar";
+import Categories from "./pages/categories";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route index element={<Home />} />
+          <Route path="products" element={<Products />} />
+          <Route path="categories" element={<Categories />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="profile" element={<Profile />} />

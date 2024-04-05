@@ -30,23 +30,9 @@ const ProductsData = [
     price: "220",
     aosDelay: "0",
   },
-  // {
-  //   id: 5,
-  //   img: "https://source.unsplash.com/260x180/?printed",
-  //   title: "Printed ",
-  //   price: "220",
-  //   aosDelay: "0",
-  // },
-  // {
-  //   id: 6,
-  //   img: "https://source.unsplash.com/260x180/?printed",
-  //   title: "Printed ",
-  //   price: "220",
-  //   aosDelay: "0",
-  // },
 ];
 
-function Products() {
+function ProductsList() {
   return (
     <div>
       <ProductCard data={ProductsData} />
@@ -54,4 +40,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default ProductsList;
