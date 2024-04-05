@@ -1,10 +1,11 @@
 import { useForm } from 'react-hook-form';
 import Heading from '../components/reusables/Heading';
 import axios from "axios";
-
+import { useState } from 'react';
 function Register() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  
+  const [registerError, setRegisterError] = useState(null);
+
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append('username', data.username);
@@ -22,7 +23,8 @@ function Register() {
 
       })
       .catch((error) => {
-        console.log("Login failed:", error.response.data);
+        setRegisterError(error.response.data);
+        console.log(error.response.data)
       });
   };
 
@@ -37,6 +39,9 @@ function Register() {
             placeholder="Username"
           />
           {errors.username && (<p className=" text-red-500 text-xs">{errors.username.message}</p>)}
+          {registerError && (
+            <p className="mt-2 text-red-500 text-xs">{registerError.username}</p>
+          )}
 
           <input
             {...register("first_name", { required: "Name is required", minLength: { value: 5, message: "Name must be at least 5 characters long" }, maxLength: { value: 10, message: "Name must not be longer than 10 characters" }, pattern: { value: /^[a-zA-Z]+$/, message: "Name must contain only letters" } })}
@@ -44,14 +49,18 @@ function Register() {
             placeholder="First Name"
           />
           {errors.firstName && (<p className=" text-red-500 text-xs">{errors.firstName.message}</p>)}
-
+          {registerError && (
+            <p className="mt-2 text-red-500 text-xs">{registerError.first_name}</p>
+          )}
           <input
             {...register("last_name", { required: "Name is required", minLength: { value: 5, message: "Name must be at least 5 characters long" }, maxLength: { value: 10, message: "Name must not be longer than 10 characters" }, pattern: { value: /^[a-zA-Z]+$/, message: "Name must contain only letters" } })}
             className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             placeholder="Last Name"
           />
           {errors.lastName && (<p className=" text-red-500 text-xs">{errors.lastName.message}</p>)}
-
+          {registerError && (
+            <p className="mt-2 text-red-500 text-xs">{registerError.last_name}</p>
+          )}
           <input
             type="email"
             {...register("email", { required: "Email is required", pattern: { value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, message: "Please enter a valid email address" } })}
@@ -59,7 +68,9 @@ function Register() {
             placeholder="Email"
           />
           {errors.email && (<p className=" text-red-500 text-xs">{errors.email.message}</p>)}
-
+          {registerError && (
+            <p className="mt-2 text-red-500 text-xs">{registerError.email}</p>
+          )}
           <input
             type="password"
             {...register("password", { required: "Password is required", pattern: { value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/i, message: "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long" } })}
@@ -67,13 +78,18 @@ function Register() {
             placeholder="Password"
           />
           {errors.password && (<p className=" text-red-500 text-xs">{errors.password.message}</p>)}
-
+          {registerError && (
+            <p className="mt-2 text-red-500 text-xs">{registerError.password}</p>
+          )}
           <input
             {...register("shipping_address", { maxLength: { value: 100, message: "Address must not be longer than 100 characters" } })}
             className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             placeholder="Shipping Address"
           />
           {errors.address && (<p className=" text-red-500 text-xs">{errors.address.message}</p>)}
+          {registerError && (
+            <p className="mt-2 text-red-500 text-xs">{registerError.address}</p>
+          )}
 
           <input
             type="file"
@@ -82,7 +98,9 @@ function Register() {
             {...register("profile_photo")}
             className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
           />
-
+          {registerError && (
+            <p className="mt-2 text-red-500 text-xs">{registerError.profile_photo}</p>
+          )}
           <div className="mt-6">
             <button
               type="submit"
