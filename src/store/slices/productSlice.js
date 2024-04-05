@@ -28,6 +28,7 @@ const productSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getProductsListThunk.pending, (state) => {
             state.isLoading = true;
+
         })
         builder.addCase(getProductsListThunk.fulfilled, (state, action) => {
             state.isLoading = false;
