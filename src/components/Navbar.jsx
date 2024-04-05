@@ -1,9 +1,10 @@
-import React from "react";
+import React from 'react';
 import { FaCaretDown } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { IoMdSearch } from "react-icons/io";
+import SearchProduct from "./products/SearchProduct"; 
 
 const DropdownLinks = [
   {
@@ -19,12 +20,6 @@ const DropdownLinks = [
 ];
 
 const Navbar = () => {
-  const handleSearchClick = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchData = urlParams.get('q');
-        console.log("Search Data:", searchData);
-    };
-  
   return (
     <div className="bg-white dark:bg-gray-900 dark:text-white duration-200 relative z-50 mb-10 ">
       <div className="py-4">
@@ -66,12 +61,7 @@ const Navbar = () => {
 
           {/* Navbar Right section */}
           <div className="flex items-center gap-6">
-            <div className="relative group hidden sm:block">
-              <input type="text" placeholder="Search" className="search-bar" />
-              <IoMdSearch className="text-xl text-gray-600 group-hover:text-primary dark:text-gray-400 absolute top-1/2 -translate-y-1/2 right-3 duration-200" 
-                    onClick={handleSearchClick}
-              />
-            </div>
+            <SearchProduct />
 
             {/* Dropdown for Quick Links */}
             <div className="relative cursor-pointer group">

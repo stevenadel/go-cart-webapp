@@ -12,7 +12,7 @@ import Orders from "./pages/Orders";
 import Admin from "./pages/Admin";
 import PageNotFound from "./pages/PageNotFound";
 import Navbar from "./components/Navbar";
-
+import SearchProduct from "./components/products/SearchProduct";
 function App() {
   return (
     <>
@@ -27,6 +27,7 @@ function App() {
           <Route path="cart" element={<Cart />} />
           <Route path="orders" element={<Orders />} />
           <Route path="admin" element={<Admin />} />
+          <Route path="/search" element={<SearchProduct />} /> 
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
