@@ -8,23 +8,17 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const validData = {
-    username: "esraa",
-    password: "@12345678ASrr",
-  };
+
 
   const onSubmit = (data) => {
-    const url = import.meta.env.VITE_API_URL + "/login";
-    // console.log(data);
-    // console.log(url);
+    const url = import.meta.env.VITE_API_URL + "/login/";
     axios
       .post(url, data)
       .then((response) => {
-        console.log("response", response);
-        console.log("Token:", response.data.token);
+        localStorage.setItem('token', response.data.token)
       })
       .catch((error) => {
-        console.error("Login failed:", error);
+        console.log("Login failed:", error.response.data);
       });
   };
 
