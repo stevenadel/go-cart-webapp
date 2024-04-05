@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import Heading from "../components/reusables/Heading";
 import axios from "axios";
-
+import { useState } from "react";
 function Login() {
   const {
     register,
@@ -9,7 +9,8 @@ function Login() {
     formState: { errors },
   } = useForm();
 
-
+  const [loginError, setLoginError] = useState(null);
+  
   const onSubmit = (data) => {
     const url = import.meta.env.VITE_API_URL + "/login/";
     axios
@@ -18,7 +19,7 @@ function Login() {
         localStorage.setItem('token', response.data.token)
       })
       .catch((error) => {
-        console.log("Login failed:", error.response.data);
+        setLoginError(error.response.data.error);
       });
   };
 
@@ -70,6 +71,9 @@ function Login() {
             <p className="mt-2 text-red-500 text-xs">
               {errors.password.message}
             </p>
+          )}
+          {loginError && (
+            <p className="mt-2 text-red-500 text-xs">{loginError}</p>
           )}
           <div className="mt-6">
             <button
