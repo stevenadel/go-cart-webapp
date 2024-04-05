@@ -15,7 +15,7 @@ const ProductCard = ({ data }) => {
           >
             <div className="relative">
               <img
-                src={data.img}
+                src={data.image}
                 alt=""
                 className="h-[180px] w-[260px] object-cover rounded-md"
               />
@@ -29,7 +29,7 @@ const ProductCard = ({ data }) => {
               </div>
             </div>
             <div className="leading-7">
-              <h2 className="font-semibold">{data.title}</h2>
+              <h2 className="font-semibold">{data.name}</h2>
               <h2 className="font-bold">${data.price}</h2>
             </div>
           </div>
