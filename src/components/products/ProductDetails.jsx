@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductDetailsThunk } from '../../store/slices/productDetailsSlice';
 import Button from '../reusables/Button'; 
-
+import LoadingSpinner from '../reusables/LoadingSpinner';
 const ProductDetails = () => {
   const { productId } = useParams(); 
   const dispatch = useDispatch();
-  const { product, isLoading, error } = useSelector(state => state.productDetails);
+  const { product, error } = useSelector(state => state.productDetails);
 
   useEffect(() => {
     dispatch(getProductDetailsThunk(productId)); 
@@ -15,7 +15,7 @@ const ProductDetails = () => {
 
   if(!product)
   {
-    return <div>Loading...</div>;
+    return <LoadingSpinner/>;
   }
 
   if (error) {
