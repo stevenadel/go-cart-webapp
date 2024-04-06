@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import Button from "../reusables/Button";
+import { addToCartThunk } from "../../store/slices/cartSlice";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -24,6 +25,12 @@ const ProductCard = ({ item }) => {
 
   const toggleFavourite = () => {
     setIsFavourite((prevState) => !prevState);
+  };
+
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (productId) => {
+    dispatch(addToCartThunk(productId)); // Send only productId
   };
 
   return (
