@@ -13,7 +13,8 @@ const ProductDetails = () => {
     dispatch(getProductDetailsThunk(productId)); 
   }, [dispatch, productId]);
 
-  if (isLoading) {
+  if(!product)
+  {
     return <div>Loading...</div>;
   }
 
