@@ -4,6 +4,6 @@ import cartReducer from "./slices/cartSlice"
 export default configureStore({
     reducer: {
         product: productReducer,
-        cart: cartReducer
+        cart: cartReducer,
     },
 });

@@ -4,16 +4,16 @@ import { Link } from "react-router-dom";
 import { getProductsListThunk } from "../../store/slices/productSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
-
-
+import axios from "axios";
 
 
 function Products() {
-  const dispatch = useDispatch();
+  const ProductDispatch = useDispatch();
   const { productsList, isLoading, error } = useSelector(state => state.product);
   useEffect(() => {
-    dispatch(getProductsListThunk());
-}, [dispatch]);
+    ProductDispatch(getProductsListThunk());
+}, [ProductDispatch]);
+
 
 if (isLoading) {
   return <p> loading</p>
