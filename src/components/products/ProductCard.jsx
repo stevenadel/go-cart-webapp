@@ -4,6 +4,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { getProductsListThunk } from "../../store/slices/productSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
+import { addToCartThunk } from "../../store/slices/cartSlice";
 
 import { useDispatch } from "react-redux";
 import {
@@ -27,7 +28,12 @@ const ProductCard = ({ item }) => {
   const toggleFavourite = () => {
     setIsFavourite((prevState) => !prevState);
   };
-  
+
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (productId) => {
+    dispatch(addToCartThunk(productId)); // Send only productId
+  };
 
   return (
     <div>
