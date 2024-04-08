@@ -19,7 +19,7 @@ import Navbar from "./components/Navbar";
 import ProductDetails from "./components/products/ProductDetails";
 import SearchProduct from "./components/products/SearchProduct";
 import Categories from "./pages/categories";
-
+import Checkout from "./pages/Checkout";
 function App() {
   return (
     <>
@@ -38,6 +38,7 @@ function App() {
           <Route path="admin" element={<Admin />} />
           <Route path="products/:productId" element={<ProductDetails />}/>
           <Route path="/search" element={<SearchProduct />} /> 
+          <Route path="/checkout" element={<Checkout />} /> 
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
