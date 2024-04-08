@@ -15,8 +15,9 @@ function WishlistPage() {
     dispatch(fetchWishlist());
   }, [dispatch]);
 
-  const handleRemoveFromWishlist = (productId) => {
-    dispatch(removeFromWishlist(productId));
+  const handleRemoveFromWishlist = async (productId) => {
+    await dispatch(removeFromWishlist(productId));
+    dispatch(fetchWishlist());
   };
 
   return (
@@ -24,7 +25,10 @@ function WishlistPage() {
       <h1>Wishlist</h1>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {!isLoading && !error && (
+      {!isLoading && !error && wishlist?.length === 0 && (
+        <p>Your wishlist is empty</p>
+      )}
+      {!isLoading && !error && wishlist && (
         <div className="mb-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 place-items-center mt-10 px-8">
             {/* card section */}
