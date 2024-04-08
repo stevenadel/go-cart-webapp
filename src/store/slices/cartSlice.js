@@ -2,42 +2,60 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../axios";
 
 // Thunk to fetch cart data
-export const getCartThunk = createAsyncThunk("cart/getCart", async (_, { getState }) => {
-    try {
-        const { sessionId } = getState().cart; // Get session ID from Redux state
-        const res = await axiosInstance.get("/cart/", {
-            params: { session_id: sessionId } // Pass session ID as query parameter
-        });
-        return res.data;
-    } catch (error) {
-        console.log(error);
-        throw error;
+export const getCartThunk = createAsyncThunk(
+    "cart/getCart",
+    async () => {
+        try {
+            const res = await axiosInstance.get("/cart/");
+            return res.data;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     }
-});
+);
 
 // Thunk to add an item to the cart
-export const addToCartThunk = createAsyncThunk("cart/addToCart", async (productId, { getState }) => {
-    try {
-        const { sessionId } = getState().cart; // Get session ID from Redux state
-        const res = await axiosInstance.post("/cart/", { product_id: productId, session_id: sessionId });
-        return res.data;
-    } catch (error) {
-        console.log(error);
-        throw error;
+export const addToCartThunk = createAsyncThunk(
+    "cart/addToCart",
+    async ({ productId, quantity }, { getState }) => {
+        try {
+            const token = localStorage.getItem('token'); // Access token from cart state
+            const config = {
+                headers: {
+                    Authorization: `Token ${token}`
+                }
+            };
+            const data = {
+                product_id: productId,
+                quantity: quantity
+            };
+            const res = await axiosInstance.post("/cart/", data, config);
+            return res.data;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     }
-});
+);
+
+const initialState = {
+    cartList: [],
+    isLoading: false,
+    error: "",
+    auth: {
+        token: null, // Initialize token to null
+        // Other authentication-related state variables if needed
+    }
+};
 
 const cartSlice = createSlice({
     name: "cart",
-    initialState: {
-        cartList: [],
-        isLoading: false,
-        error: "",
-        sessionId: "" // Add sessionId to initialState
-    },
+    initialState,
     reducers: {
-        setSessionId: (state, action) => {
-            state.sessionId = action.payload;
+        // Any additional reducers can be added here
+        setToken: (state, action) => {
+            state.auth.token = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -69,6 +87,5 @@ const cartSlice = createSlice({
     },
 });
 
-export const { setSessionId } = cartSlice.actions; // Export the setSessionId action creator
-
+export const { setToken } = cartSlice.actions; // Export action creator for setting token
 export default cartSlice.reducer;
