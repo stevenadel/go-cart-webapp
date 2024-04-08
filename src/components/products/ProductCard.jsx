@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { addToCartThunk } from "../../store/slices/cartSlice";
 
-import { useDispatch } from "react-redux";
 import {
   addToWishlist,
   removeFromWishlist,
@@ -29,10 +28,16 @@ const ProductCard = ({ item }) => {
     setIsFavourite((prevState) => !prevState);
   };
 
-  const dispatch = useDispatch();
-
   const handleAddToCart = (productId) => {
-    dispatch(addToCartThunk(productId)); // Send only productId
+    dispatch(addToCartThunk({ productId: productId, quantity: 1 }))
+      .then((response) => {
+        console.log("Add to cart successful:", response);
+        // Handle success, if needed
+      })
+      .catch((error) => {
+        console.error("Add to cart failed:", error);
+        // Handle error, if needed
+      });
   };
 
   return (
