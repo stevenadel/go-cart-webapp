@@ -22,23 +22,14 @@ export const addToWishlist = createAsyncThunk(
   }
 );
 
-// export const removeFromWishlist = createAsyncThunk(
-//   "wishlist/removeFromWishlist",
-//   async (productId) => {
-//     const response = await axios.delete(`${baseURL}/wishlist/${productId}`);
-//     return response.data;
-//   }
-// );
-
 export const removeFromWishlist = createAsyncThunk(
   "wishlist/removeFromWishlist",
   async (productid) => {
     const product_id = Number(productid);
     console.log(typeof product_id);
-    const response = await axios.delete(`${baseURL}/wishlist`, {
+    await axios.delete(`${baseURL}/wishlist`, {
       data: { product_id },
     });
-    // return response;
   }
 );
 
