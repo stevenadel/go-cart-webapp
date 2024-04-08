@@ -5,6 +5,7 @@ import { getProductsListThunk } from "../../store/slices/productSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { addToCartThunk } from "../../store/slices/cartSlice";
+import Button from "../reusables/Button";
 
 import {
   addToWishlist,
