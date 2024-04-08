@@ -1,8 +1,8 @@
 import React from "react";
-import ProductCard from "../components/products/ProductCard";
 import Heading from "../components/reusables/Heading";
+import ProductsList from "../components/products/ProductsList";
 
-const ProductsData = [
+const AllProducts = [
   {
     id: 1,
     img: "https://source.unsplash.com/260x180/?headphone",
@@ -149,9 +149,7 @@ function Products() {
   return (
     <>
       <Heading title="Our Products" subtitle={""} />
-      <div>
-        <ProductCard data={ProductsData} />
-      </div>
+      <ProductsList Products={AllProducts} />
     </>
   );
 }
