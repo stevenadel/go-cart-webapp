@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import Button from "../reusables/Button";
+import { useDispatch } from "react-redux";
 import { addToCartThunk } from "../../store/slices/cartSlice";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -30,7 +31,15 @@ const ProductCard = ({ item }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = (productId) => {
-    dispatch(addToCartThunk(productId)); // Send only productId
+    dispatch(addToCartThunk({ productId: productId, quantity: 1 }))
+      .then((response) => {
+        console.log("Add to cart successful:", response);
+        // Handle success, if needed
+      })
+      .catch((error) => {
+        console.error("Add to cart failed:", error);
+        // Handle error, if needed
+      });
   };
 
   return (
