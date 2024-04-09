@@ -14,6 +14,30 @@ import {
 
 const ProductCard = ({ item }) => {
   const dispatch = useDispatch();
+  const [isFavourite, setIsFavourite] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleAddToCart = (productId) => {
+    dispatch(addToCartThunk({ productId: productId, quantity: 1 }))
+      .then((response) => {
+        console.log("Add to cart successful:", response);
+      })
+      .catch((error) => {
+        console.error("Add to cart failed:", error);
+        if (error.response && error.response.status === 401) {
+          console.log("Unauthorized error detected");
+          setErrorMessage("Please log in to add items to your cart.");
+        } else {
+          console.log("Other error detected");
+          setErrorMessage("An error occurred. Please try again later.");
+        }
+      });
+  };
+
+  const closeErrorMessage = () => {
+    setErrorMessage("");
+  };
 
   const handleAddToWishlist = async (productId) => {
     await dispatch(addToWishlist(productId));
@@ -22,8 +46,6 @@ const ProductCard = ({ item }) => {
   const handleRemoveFromWishlist = async (productId) => {
     await dispatch(removeFromWishlist(productId));
   };
-
-  const [isFavourite, setIsFavourite] = useState(false);
 
   const toggleFavourite = () => {
     setIsFavourite((prevState) => !prevState);
@@ -64,6 +86,19 @@ const ProductCard = ({ item }) => {
 
   return (
     <div>
+      {errorMessage && (
+        <div className="fixed inset-0 flex justify-center items-center bg-gray-700 bg-opacity-50 z-50">
+          <div className="bg-white p-8 rounded-md">
+            <p className="text-red-600 font-semibold">{errorMessage}</p>
+            <button
+              className="mt-4 px-4 py-2 bg-primary text-white rounded-md"
+              onClick={closeErrorMessage}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
       <div className="group relative" key={item.id}>
         <div>
           <img
@@ -86,9 +121,12 @@ const ProductCard = ({ item }) => {
         </div>
       </div>
       <div style={{ marginTop: 5, marginBottom: 20 }}>
-        <button className="bg-primary text-white px-4 py-2 rounded-md">
-          Add to Cart
-        </button>
+        <Button
+          text={"Add to cart"}
+          bgColor={"bg-primary"}
+          textColor={"text-white"}
+          handler={() => handleAddToCart(item.id)}
+        />
         <button
           style={{
             display: "inline-block",
