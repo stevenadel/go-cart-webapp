@@ -1,7 +1,6 @@
 import React from "react";
 
 // Importing the required icons
-import { FaCaretDown } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -29,12 +28,7 @@ const Navbar = () => {
         <div className="container flex justify-between items-center">
           {/* Logo and Links section */}
           <div className="flex items-center gap-4">
-            <button
-              className="text-primary font-semibold tracking-widest text-2xl uppercase sm:text-4xl"
-              onClick={() => {
-                /* Add your click event handler here */
-              }}
-            >
+            <button className="text-primary font-semibold tracking-widest text-2xl uppercase sm:text-4xl">
               <Link to="/">Go-Cart</Link>
             </button>
           </div>
@@ -95,7 +89,6 @@ const Navbar = () => {
                 <Link to="/profile" className="profile-link">
                   <img src={profilePic} alt="Profile" className="profile-pic" />
                 </Link>
-                {/* Add other navbar items here */}
               </div>
             </div>
           </div>

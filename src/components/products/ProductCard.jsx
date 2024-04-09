@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { getProductsListThunk } from "../../store/slices/productSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 
+import { useDispatch } from "react-redux";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../../store/slices/wishlistSlice";
 
 const ProductCard = ({ item }) => {
   const dispatch = useDispatch();
