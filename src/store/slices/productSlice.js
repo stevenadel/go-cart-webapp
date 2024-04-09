@@ -24,11 +24,9 @@ const productSlice = createSlice({
         currentPage: 1,
         totalPages: 0,
     },
-    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getProductsListThunk.pending, (state) => {
             state.isLoading = true;
-
         })
         builder.addCase(getProductsListThunk.fulfilled, (state, action) => {
             state.isLoading = false;
@@ -43,6 +41,6 @@ const productSlice = createSlice({
     }
 })
 
-
+export const { changeProduct } = productSlice.actions;
 
 export default productSlice.reducer;
