@@ -1,9 +1,25 @@
-import React, { useState } from "react";
-import Button from "../reusables/Button";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import Button from "../reusables/Button";
+
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../../store/slices/wishlistSlice";
 
 const ProductCard = ({ item }) => {
+  const dispatch = useDispatch();
+
+  const handleAddToWishlist = async (productId) => {
+    await dispatch(addToWishlist(productId));
+  };
+
+  const handleRemoveFromWishlist = async (productId) => {
+    await dispatch(removeFromWishlist(productId));
+  };
+
   const [isFavourite, setIsFavourite] = useState(false);
 
   const toggleFavourite = () => {
@@ -43,7 +59,14 @@ const ProductCard = ({ item }) => {
             verticalAlign: "middle",
             marginLeft: "15px",
           }}
-          onClick={toggleFavourite}
+          onClick={() => {
+            toggleFavourite();
+            if (isFavourite) {
+              handleRemoveFromWishlist(item.id);
+            } else {
+              handleAddToWishlist(item.id);
+            }
+          }}
         >
           <FontAwesomeIcon
             icon={faHeart}

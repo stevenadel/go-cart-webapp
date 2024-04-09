@@ -43,11 +43,15 @@ function WishlistPage() {
                   className="h-40 w-full object-cover"
                 />
                 <div className="p-4">
-                  <h3 className="font-semibold text-lg">{item.name}</h3>
+                  <h3 className="font-semibold text-lg">
+                    {item.name.substring(0, 40)}...
+                  </h3>
                   <p className="text-gray-600 mb-2">
-                    Description: {item.description}
+                    {item.description.substring(0, 90)}...
                   </p>
-                  <p className="text-gray-600 mb-2">Price: {item.price}</p>
+                  <p className="text-gray-600 mb-2">
+                    Price: <strong>{item.price} $ </strong>
+                  </p>
                   <button
                     onClick={() => handleRemoveFromWishlist(item.id)}
                     className="bg-primary text-white w-full mt-2 py-2 rounded-md shadow-md hover:bg-primary-dark transition duration-300"
