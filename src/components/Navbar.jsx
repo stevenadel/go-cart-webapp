@@ -1,15 +1,11 @@
 import React from "react";
-
-// Importing the required icons
 import { FaCaretDown } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { IoMdSearch } from "react-icons/io";
-import SearchProduct from "./products/SearchProduct"; 
+import SearchProduct from "./products/SearchProduct";
 
 const profilePic = "https://source.unsplash.com/50x50/?profile";
-
 
 const DropdownLinks = [
   {

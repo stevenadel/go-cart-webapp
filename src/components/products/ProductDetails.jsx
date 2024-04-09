@@ -37,16 +37,16 @@ const ProductDetails = () => {
           <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
             {product.description}
           </p>
-          <div className="flex items-center space-x-4 mb-8"> {/* Increased margin bottom here */}
+          <div className="flex items-center space-x-4 mb-8"> 
             <span className="text-sm text-neutral-500 dark:text-neutral-300">Price: ${product.price}</span>
           </div>
-          <div className="flex justify-between">
+          <div className="">
             <Button
               text="Add to Cart"
               bgColor="bg-primary"
               textColor="text-white"
             />
-            <div className="w-4" />
+            {/* <div className="w-4" /> */}
             <Button
               text="Add to Wishlist"
               bgColor="bg-primary"

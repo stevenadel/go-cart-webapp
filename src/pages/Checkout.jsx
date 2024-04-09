@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Checkout = () => {
+  const [token, setToken] = useState('');
 
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-
-    if (query.get("success")) {
-      console.log("Order placed! You will receive an email confirmation.");
-    }
-
-    if (query.get("cancelled")) { 
-      console.log(
-        "Order canceled -- continue to shop around and checkout when you're ready."
-      );
-    }
+    const storedToken = localStorage.getItem('token');
+    setToken(storedToken);
   }, []);
+
+  const handleCheckout = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:8000/checkout/', {}, {
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      });
+
+      console.log(response.data); 
+    } catch (error) {
+      console.error('Error during checkout:', error);
+    }
+  };
 
   return (
     <section>
@@ -28,7 +37,7 @@ const Checkout = () => {
           <h5>$20.00</h5>
         </div>
       </div>
-      <form action={`http://localhost:8000/checkout/`} method="POST">
+      <form onSubmit={handleCheckout}>
         <button type="submit">
           Checkout
         </button>
