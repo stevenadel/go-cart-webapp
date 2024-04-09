@@ -14,7 +14,7 @@ function Login() {
   };
 
   const onSubmit = (data) => {
-    const url = import.meta.env.VITE_API_URL + "/login";
+    const url = import.meta.env.VITE_API_URL + "/login/";
     // console.log(data);
     // console.log(url);
     axios
