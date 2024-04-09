@@ -1,25 +1,30 @@
 import { useForm } from "react-hook-form";
 import Heading from "../components/reusables/Heading";
 import axios from "axios";
-import { useState } from "react";
+
 function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const validData = {
+    username: "esraa",
+    password: "@12345678ASrr",
+  };
 
-  const [loginError, setLoginError] = useState(null);
-  
   const onSubmit = (data) => {
-    const url = import.meta.env.VITE_API_URL + "/login/";
+    const url = import.meta.env.VITE_API_URL + "/login";
+    // console.log(data);
+    // console.log(url);
     axios
       .post(url, data)
       .then((response) => {
-        localStorage.setItem('token', response.data.token)
+        console.log("response", response);
+        console.log("Token:", response.data.token);
       })
       .catch((error) => {
-        setLoginError(error.response.data.error);
+        console.error("Login failed:", error);
       });
   };
 
@@ -71,9 +76,6 @@ function Login() {
             <p className="mt-2 text-red-500 text-xs">
               {errors.password.message}
             </p>
-          )}
-          {loginError && (
-            <p className="mt-2 text-red-500 text-xs">{loginError}</p>
           )}
           <div className="mt-6">
             <button

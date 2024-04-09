@@ -2,31 +2,22 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../axios";
 
 export const getProductsListThunk = createAsyncThunk("products/getProducts", async () => {
-    try {
-        const res = await axiosInstance.get("/products/");
-        return res.data.results;
-    } catch (error) {
-        console.log(error)
-    }
-
+    const res = await axiosInstance.get("/products");
+    return res.data;
 });
 
 const productSlice = createSlice({
     name: "product",
     initialState: {
-        productsList: [],
-        isLoading: false,
-        error: "",
+        list: []
     },
-    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getProductsListThunk.pending, (state) => {
             state.isLoading = true;
-
         })
         builder.addCase(getProductsListThunk.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.productsList = action.payload;
+            state.list = action.payload.products;
         })
         builder.addCase(getProductsListThunk.rejected, (state, action) => {
             state.isLoading = false;
@@ -35,6 +26,6 @@ const productSlice = createSlice({
     }
 })
 
-
+export const { changeProduct } = productSlice.actions;
 
 export default productSlice.reducer;
