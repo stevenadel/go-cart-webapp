@@ -3,7 +3,7 @@ import Button from "../reusables/Button";
 
 const CategoryCard = ({ data }) => {
   const cardStyle = {
-    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url(${data.image})`,
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url(${'http://127.0.0.1:8000'+data.image})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
   };
@@ -20,7 +20,7 @@ const CategoryCard = ({ data }) => {
               <p className="mb-[2px] text-gray-400">Enjoy</p>
               <p className="text-2xl font-semibold mb-[2px]">With</p>
               <p className="text-4xl xl:text-5xl font-bold opacity-50 mb-2">
-                {data.title}
+                {data.name}
               </p>
               <Button
                 text="Browse"
