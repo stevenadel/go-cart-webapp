@@ -15,6 +15,22 @@ export const getCategoryListThunk = createAsyncThunk("Category/getCategory", asy
     }
 });
 
+export const getProductsByCategoryThunk = createAsyncThunk(
+    'product/getProductsByCategory',
+    async (category_id) => {
+        try {
+            // Send a request to fetch products by category
+            const res = await axiosInstance.get(`/products/categories/${category_id}/`);
+            // Return the response data
+            console.log(res.data)
+            return res.data;
+        } catch (error) {
+            // Handle errors
+            console.error('Error fetching products by category:', error);
+            throw error; // Rethrow the error to handle it in the slice
+        }
+    }
+);
 
 const categorySlice = createSlice({
     name: "category",

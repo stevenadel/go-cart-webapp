@@ -1,5 +1,7 @@
 import React from "react";
 import Button from "../reusables/Button";
+import { useDispatch } from "react-redux";
+import { getProductsByCategoryThunk } from "../../store/slices/categorySlice";
 
 const CategoryCard = ({ data }) => {
   const cardStyle = {
@@ -7,6 +9,11 @@ const CategoryCard = ({ data }) => {
     backgroundSize: "cover",
     backgroundPosition: "center",
   };
+  const dispatch = useDispatch();
+  const handleBrowseClick = (category_id) => {
+    dispatch(getProductsByCategoryThunk(category_id));
+  };
+
 
   return (
     <div className="py-8">
@@ -26,6 +33,7 @@ const CategoryCard = ({ data }) => {
                 text="Browse"
                 bgColor={"bg-primary"}
                 textColor={"text-white"}
+                handler={()=> handleBrowseClick(data.id)}
               />
             </div>
           </div>
