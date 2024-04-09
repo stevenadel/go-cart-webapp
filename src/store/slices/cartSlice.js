@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../axios";
 
+
+
 // Thunk to fetch cart data
 export const getCartThunk = createAsyncThunk(
     "cart/getCart",
@@ -18,9 +20,9 @@ export const getCartThunk = createAsyncThunk(
 // Thunk to add an item to the cart
 export const addToCartThunk = createAsyncThunk(
     "cart/addToCart",
-    async ({ productId, quantity }, { getState }) => {
+    async ({ productId, quantity }, { getState, rejectWithValue }) => {
         try {
-            const token = localStorage.getItem('token'); // Access token from cart state
+            const token = localStorage.getItem('token');
             const config = {
                 headers: {
                     Authorization: `Token ${token}`
@@ -33,7 +35,55 @@ export const addToCartThunk = createAsyncThunk(
             const res = await axiosInstance.post("/cart/", data, config);
             return res.data;
         } catch (error) {
-            console.log(error);
+            if (error.response.status === 401) {
+
+                console.log("Unauthorized access error:", error.response.statusText);
+                return rejectWithValue("Unauthorized access");
+            }
+            console.log("Other error occurred:", error);
+            throw error;
+        }
+    }
+);
+
+
+export const deleteCartItemThunk = createAsyncThunk(
+    "cart/deleteCartItem",
+    async (itemId, { getState }) => {
+        try {
+            const token = localStorage.getItem('token');
+            const config = {
+                headers: {
+                    Authorization: `Token ${token}`
+                },
+                data: { item_id: itemId } // Send item ID in the request body
+            };
+            await axiosInstance.delete(`/cart/`, config); // Remove item ID from URL
+            return itemId; // Return the deleted item ID
+        } catch (error) {
+            console.log("Delete item error:", error);
+            throw error;
+        }
+    }
+);
+export const updateCartItemQuantityThunk = createAsyncThunk(
+    "cart/updateCartItemQuantity",
+    async ({ itemId, quantity }, { getState }) => {
+        try {
+            const token = localStorage.getItem('token');
+            const config = {
+                headers: {
+                    Authorization: `Token ${token}`
+                }
+            };
+            const data = {
+                item_id: itemId,
+                quantity: quantity
+            };
+            const res = await axiosInstance.patch(`/cart/`, data, config);
+            return res.data; // Return updated cart item
+        } catch (error) {
+            console.log("Update quantity error:", error);
             throw error;
         }
     }
@@ -82,7 +132,7 @@ const cartSlice = createSlice({
             })
             .addCase(addToCartThunk.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = action.error.message;
+                state.error = action.payload; // Set error message from rejectWithValue
             });
     },
 });
