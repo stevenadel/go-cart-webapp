@@ -19,7 +19,6 @@ import Navbar from "./components/Navbar";
 import ProductDetails from "./components/products/ProductDetails";
 import SearchProduct from "./components/products/SearchProduct";
 import Categories from "./pages/categories";
-
 function App() {
   return (
     <>
