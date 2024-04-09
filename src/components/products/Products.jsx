@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getProductsListThunk } from "../../store/slices/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import axios from "axios";
 
 function Products() {
   const dispatch = useDispatch();
