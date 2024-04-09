@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import Button from "../reusables/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { getProductsListThunk } from "../../store/slices/productSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from "react";
+
 
 const ProductCard = ({ item }) => {
   const [isFavourite, setIsFavourite] = useState(false);
@@ -9,6 +13,7 @@ const ProductCard = ({ item }) => {
   const toggleFavourite = () => {
     setIsFavourite((prevState) => !prevState);
   };
+  
 
   return (
     <div>
