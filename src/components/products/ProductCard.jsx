@@ -15,7 +15,7 @@ const ProductCard = ({ data }) => {
           >
             <div className="relative">
               <img
-                src={data.image}
+                src={'http://127.0.0.1:8000/'+data.image}
                 alt=""
                 className="h-[180px] w-[260px] object-cover rounded-md"
               />
