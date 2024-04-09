@@ -15,10 +15,10 @@ export const fetchWishlist = createAsyncThunk(
 export const addToWishlist = createAsyncThunk(
   "wishlist/addToWishlist",
   async (productId) => {
-    const response = await axios.post(`${baseURL}/wishlist/add/`, {
+    console.log(productId);
+    await axios.post(`${baseURL}/wishlist`, {
       product_id: productId,
     });
-    return response.data;
   }
 );
 
