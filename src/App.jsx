@@ -16,7 +16,7 @@ import Orders from "./pages/Orders";
 import Admin from "./pages/Admin";
 import PageNotFound from "./pages/PageNotFound";
 import Navbar from "./components/Navbar";
-import ProductDetails from "./components/products/ProductDetails";
+import ProductDetails from "./pages/ProductDetails";
 import Categories from "./pages/categories";
 import Checkout from "./pages/Checkout";
 function App() {
