@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchOrders } from '../store/slices/OrderSlice.js';
+import LoadingSpinner from "../components/reusables/LoadingSpinner.jsx";
 
 const Orders = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const Orders = () => {
 
   return (
     <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
-      {loading && <div className="text-center text-blue-500 font-bold">Loading...</div>}
+      {loading && <div className="text-center text-blue-500 font-bold"><LoadingSpinner /></div>}
       {error && <div className="text-center text-red-500 font-bold">Error: {error}</div>}
 
       {orders.map((order) => (
@@ -29,7 +30,7 @@ const Orders = () => {
                     <p className="text-lg md:text-xl dark:text-white font-semibold leading-6 xl:leading-5 text-gray-800">{product.name}</p>
                     <div className="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full">
                       <div className="pb-4 md:pb-8 w-full md:w-40">
-                        <img className="w-full hidden md:block" src={product.image} alt={product.name} />
+                        <img className="w-full hidden md:block" src={"https://i.pinimg.com/564x/f8/0d/22/f80d22e1a337e1e7cd745c12a2b3426b.jpg"} alt={product.name} />
                         <img className="w-full md:hidden" src={product.image} alt={product.name} />
                       </div>
                       <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">

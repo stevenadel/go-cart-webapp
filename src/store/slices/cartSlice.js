@@ -89,6 +89,22 @@ export const updateCartItemQuantityThunk = createAsyncThunk(
     }
 );
 
+export const createCheckoutSessionThunk = createAsyncThunk(
+    "cart/createCheckoutSession",
+    async ({ cartId, paymentMethod }) => {
+      try {
+        const response = await axiosInstance.post("/checkout/", {
+          cart_id: cartId,
+          payment_method: paymentMethod,
+        });
+        return response.data;
+      } catch (error) {
+        throw error.response.data;
+      }
+    }
+  );
+  
+
 const initialState = {
     cartList: [],
     isLoading: false,
