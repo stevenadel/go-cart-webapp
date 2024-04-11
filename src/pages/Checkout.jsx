@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { axiosInstance } from "../axios";
-import { getCartThunk } from "../store/slices/cartSlice";
 import Swal from "sweetalert2";
 
-const Checkout = () => {
-  const dispatch = useDispatch();
+const Checkout = ({ dispatch, cartId }) => {
   const [token, setToken] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cash");
-  const cartList = useSelector((state) => state.cart.cartList);
-  const cartId = cartList.length > 0 ? cartList[0].cart : null;
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
-    dispatch(getCartThunk());
-  }, [dispatch]);
+  }, []);
 
   const handleCheckout = async (event) => {
     event.preventDefault();
@@ -56,16 +50,6 @@ const Checkout = () => {
 
   return (
     <section>
-      <div className="product">
-        <img
-          src="https://i.imgur.com/EHyR2nP.png"
-          alt="The cover of Stubborn Attachments"
-        />
-        <div className="description">
-          <h3>Stubborn Attachments</h3>
-          <h5>$20.00</h5>
-        </div>
-      </div>
       <form onSubmit={handleCheckout}>
         <label>
           Payment Method:
@@ -74,7 +58,12 @@ const Checkout = () => {
             <option value="card">Card</option>
           </select>
         </label>
-        <button type="submit">Checkout</button>
+        <button
+          type="submit"
+          className="bg-primary text-white w-full mt-2 py-2 rounded-md shadow-md hover:bg-primary-dark transition duration-300"
+        >
+          Checkout
+        </button>
       </form>
     </section>
   );
