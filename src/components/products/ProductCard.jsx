@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { getProductsListThunk } from "../../store/slices/productSlice";
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from "react";
 import { addToCartThunk } from "../../store/slices/cartSlice";
 import Button from "../reusables/Button";
 
@@ -51,38 +50,8 @@ const ProductCard = ({ item }) => {
     setIsFavourite((prevState) => !prevState);
   };
 
-    const handleAddToCart = (productId) => {
-        dispatch(addToCartThunk({ productId: productId, quantity: 1 }))
-            .then((response) => {
-                console.log("Add to cart successful:", response);
-            })
-            .catch((error) => {
-                console.error("Add to cart failed:", error);
-                if (error.response && error.response.status === 401) {
-                    console.log("Unauthorized error detected");
-                    setErrorMessage("Please log in to add items to your cart.");
-                } else {
-                    console.log("Other error detected");
-                    setErrorMessage("An error occurred. Please try again later.");
-                }
-            });
-    };
-    
 
-    const closeErrorMessage = () => {
-        setErrorMessage("");
-    };
-  const handleAddToCart = (productId) => {
-    dispatch(addToCartThunk({ productId: productId, quantity: 1 }))
-      .then((response) => {
-        console.log("Add to cart successful:", response);
-        // Handle success, if needed
-      })
-      .catch((error) => {
-        console.error("Add to cart failed:", error);
-        // Handle error, if needed
-      });
-  };
+
 
   return (
     <div>
@@ -102,7 +71,7 @@ const ProductCard = ({ item }) => {
       <div className="group relative" key={item.id}>
         <div>
           <img
-            src={item.img}
+            src={'http://127.0.0.1:8000/'+item.image}
             alt=""
             className="h-[180px] w-[260px] object-cover rounded-md"
           />
@@ -116,7 +85,7 @@ const ProductCard = ({ item }) => {
           </div>
         </div>
         <div className="leading-7">
-          <h2 className="font-semibold">{item.title}</h2>
+          <h2 className="font-semibold">{item.name}</h2>
           <h2 className="font-bold">${item.price}</h2>
         </div>
       </div>

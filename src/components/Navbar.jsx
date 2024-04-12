@@ -37,31 +37,7 @@ const Navbar = () => {
           <div className="flex items-center gap-6">
             <SearchProduct />
 
-            {/* Dropdown for Quick Links */}
-            <div className="relative cursor-pointer group">
-              <button className="flex items-center gap-[4px] font-semibold text-gray-500 dark:hover:text-white py-2 text-2xl">
-                Quick Links
-                <span>
-                  <FaCaretDown className="group-hover:rotate-180 duration-300" />
-                </span>
-              </button>
 
-              {/* Dropdown Links for Quick Links */}
-              <div className="absolute right-0 z-[9999] hidden group-hover:block w-[200px] rounded-md bg-white shadow-md dark:bg-gray-900 p-2 dark:text-white">
-                <ul className="space-y-2">
-                  {DropdownLinks.map((data, index) => (
-                    <li key={index}>
-                      <Link
-                        className="text-gray-500 dark:hover:text-white duration-200 inline-block w-full p-2 hover:bg-primary/20 rounded-md font-semibold text-xl "
-                        to={data.link}
-                      >
-                        {data.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
 
             {/* Login and Register Links */}
             <div className="flex items-center">
