@@ -1,9 +1,10 @@
 import React from "react";
 import ProductCard from "./ProductCard";
+import LoadingSpinner from "../reusables/LoadingSpinner";
 function ProductsList({ Products, isLoading, error }) {
   return (
     <div>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <LoadingSpinner />}
       {error && <p>Error: {error}</p>}
       {!isLoading && !error && (
         <div className="mb-10">
