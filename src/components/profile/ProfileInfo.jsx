@@ -146,16 +146,6 @@ function ProfileInfo() {
             )}
           </div>
 
-          {/* <div className="flex flex-col items-start justify-center rounded-2xl bg-clip-border px-3 py-3 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-            <p className="text-sm text-gray-600">Password</p>
-            <input
-              type="password"
-              {...register("password", { pattern: { value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/i, message: "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long" } })}
-              className="my-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
-            />
-            {errors.password && (<p className=" text-red-600 text-xs">{errors.password.message}</p>)}
-          </div> */}
-
           <div className="flex flex-col items-start justify-center rounded-2xl bg-clip-border px-3 py-3 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
             <p className="text-sm text-gray-600">Last Name</p>
             <input

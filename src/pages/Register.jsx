@@ -21,7 +21,7 @@ function Register() {
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("shipping_address", data.shipping_address);
-    formData.append("profile_photo", data.profile_photo[0]);
+    data.profile_photo.length && formData.append("profile_photo", data.profile_photo[0]);
 
     axiosInstance
       .post("/register/", formData)
@@ -34,7 +34,7 @@ function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
         <Heading title="Sign up to create a new account" />
         <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
@@ -142,7 +142,8 @@ function Register() {
           )}
 
           <input
-            {...register("address", {
+            {...register("shipping_address", {
+              required: "Shipping Address is required",
               maxLength: {
                 value: 100,
                 message: "Address must not be longer than 100 characters",
@@ -151,8 +152,8 @@ function Register() {
             className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-600 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             placeholder="Shipping Address"
           />
-          {errors.address && (
-            <p className=" text-red-600 text-xs">{errors.address.message}</p>
+          {errors.shipping_address && (
+            <p className=" text-red-600 text-xs">{errors.shipping_address.message}</p>
           )}
 
           <input

@@ -7,9 +7,7 @@ import Products from "./pages/products";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-import Wishlist from "./pages/Wishlist";
 import Cart from "./pages/Cart";
-import Orders from "./pages/Orders";
 import Admin from "./pages/Admin";
 import PageNotFound from "./pages/PageNotFound";
 import Navbar from "./components/Navbar";
@@ -31,9 +29,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="wishlist" element={<Wishlist />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="orders" element={<Orders />} />
           <Route path="admin" element={<Admin />} />
           <Route path="products/:productId" element={<ProductDetails />} />
           <Route path="checkout" element={<Checkout />} />
