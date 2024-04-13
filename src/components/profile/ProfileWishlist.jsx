@@ -4,7 +4,8 @@ import {
   fetchWishlist,
   removeFromWishlist,
 } from "../../store/slices/wishlistSlice";
-import LoadingSpinner from "../reusables/LoadingSpinner.jsx";
+import LoadingSpinner from "../reusables/LoadingSpinner";
+
 
 function ProfileWishlist() {
   const dispatch = useDispatch();
@@ -23,8 +24,9 @@ function ProfileWishlist() {
 
   return (
     <div>
-      {isLoading && <div className="text-brandYellow"><LoadingSpinner /></div>}
-      {error && <div className="text-center text-red-500 font-bold">Error: {error}</div>}
+      <h1>Wishlist</h1>
+      {isLoading && <LoadingSpinner />}
+      {error && <p>Error: {error}</p>}
 
       {!isLoading && !error && wishlist?.length === 0 && (
         <p>Your wishlist is empty</p>

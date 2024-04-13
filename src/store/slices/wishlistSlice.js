@@ -21,23 +21,6 @@ export const fetchWishlist = createAsyncThunk(
 
 export const addToWishlist = createAsyncThunk(
   "wishlist/addToWishlist",
-  async (productId) => {
-    const token = localStorage.getItem("token");
-
-    const config = {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    };
-    console.log(productId);
-    await axios.post(`${baseURL}/wishlist`, {
-      product_id: productId,
-    }, config);
-  }
-);
-
-export const removeFromWishlist = createAsyncThunk(
-  "wishlist/removeFromWishlist",
   async (productid) => {
     const token = localStorage.getItem("token");
 
@@ -46,11 +29,60 @@ export const removeFromWishlist = createAsyncThunk(
         Authorization: `Token ${token}`,
       },
     };
-    const product_id = Number(productid);
-    console.log(typeof product_id);
-    await axios.delete(`${baseURL}/wishlist`, {
-      data: { product_id },
-    }, config);
+    console.log(productid);
+    await axios.post(
+      `${baseURL}/wishlist`,
+      {
+        product_id: productid,
+      },
+      config
+    );
+  }
+);
+
+// export const removeFromWishlist = createAsyncThunk(
+//   "wishlist/removeFromWishlist",
+//   async (productid) => {
+//     const token = localStorage.getItem("token");
+
+//     const config = {
+//       headers: {
+//         Authorization: `Token ${token}`,
+//       },
+//     };
+//     await axios.delete(
+//       `${baseURL}/wishlist`,
+//       {
+//         product_id: productid,
+//         // data: { product_id },
+//       },
+//       config
+//     );
+//   }
+// );
+
+export const removeFromWishlist = createAsyncThunk(
+  "wishlist/removeFromWishlist",
+  async (productId) => {
+    const token = localStorage.getItem("token");
+
+    const config = {
+      headers: {
+        Authorization: `Token ${token}`,
+        "Content-Type": "application/json", // Add Content-Type header
+      },
+    };
+
+    try {
+      const product_id = Number(productId);
+      await axios.delete(`${baseURL}/wishlist`, {
+        ...config,
+        data: { product_id },
+      });
+    } catch (error) {
+      console.error("Error removing from wishlist:", error);
+      throw error; // Rethrow the error to handle it in the component
+    }
   }
 );
 

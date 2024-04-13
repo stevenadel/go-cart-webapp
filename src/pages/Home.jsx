@@ -3,30 +3,7 @@ import Heading from "../components/reusables/Heading";
 import ProductsList from "../components/products/ProductsList";
 import Services from "../components/services";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-const popularCategories = [
-  {
-    id: 1,
-    title: "Electronics",
-    image: "https://source.unsplash.com/260x180/?electronics",
-  },
-  {
-    id: 2,
-    title: "Clothing",
-    image: "https://source.unsplash.com/260x180/?clothing",
-  },
-  {
-    id: 3,
-    title: "Home & Kitchen",
-    image: "https://source.unsplash.com/260x180/?home",
-  },
-  {
-    id: 4,
-    title: "Books",
-    image: "https://source.unsplash.com/260x180/?books",
-  },
-];
+import { useSelector } from "react-redux";
 
 function Home() {
   const { productsList, isLoading, error } = useSelector(
@@ -52,7 +29,7 @@ function Home() {
         <Link to="/categories" className="text-primary font-semibold text-lg">
           <Heading title="Categories" subtitle={"Explore Our Categories"} />
         </Link>
-        <CategoryList categoriesData={popularCategories} />
+        <CategoryList Popular={true} />
       </div>
     </div>
   );
