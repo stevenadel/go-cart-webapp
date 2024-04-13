@@ -20,7 +20,7 @@ const Checkout = ({ dispatch, cartId }) => {
       }
 
       const response = await axiosInstance.post(
-        "http://localhost:8000/checkout/",
+        "/checkout/",
         {
           payment_method: paymentMethod,
           cart_id: cartId,
