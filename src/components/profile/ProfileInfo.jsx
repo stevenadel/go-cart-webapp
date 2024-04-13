@@ -1,5 +1,8 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../reusables/Button";
+import LoadingSpinner from "../reusables/LoadingSpinner";
+import { axiosInstance } from "../../axios";
 
 function ProfileInfo() {
   const {
@@ -7,16 +10,57 @@ function ProfileInfo() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [user, setUser] = useState({});
+  const [updateSucceeded, setUpdateSucceeded] = useState(false);
+  const [updateFailed, setUpdateFailed] = useState(false);
 
-  const onSubmit = (userData) => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  };
+
+  useEffect(() => {
+    axiosInstance
+      .get("/profile/", config)
+      .then((response) => {
+        const imageUrl = response.data.profile_photo;
+        if (imageUrl) {
+          response.data.profile_photo = import.meta.env.VITE_API_URL + imageUrl;
+        } else {
+          response.data.profile_photo = "profile-photo.jpg";
+        }
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+
+  const onSubmit = async (userData) => {
     for (let field in userData) {
       if (userData[field] === "") {
         delete userData[field];
       }
     }
 
-    console.log(userData);
+    const isEmpty = Object.keys(userData).length === 0;
+    if (!isEmpty) {
+      axiosInstance
+        .patch("/profile/update/", userData, config)
+        .then((response) => {
+          setUpdateSucceeded(true);
+        })
+        .catch((error) => {
+          setUpdateFailed(true);
+        });
+    }
   };
+
+  if (Object.keys(user).length === 0) {
+    return <LoadingSpinner color="brandYellow" />;
+  }
 
   return (
     <div className="flex flex-col justify-center items-center h-100">
@@ -25,14 +69,14 @@ function ProfileInfo() {
         className="relative flex flex-col items-center rounded-[20px] w-[700px] max-w-[95%] mx-auto bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none p-3"
       >
         <img
-          className="w-45 h-45 rounded-full my-5"
-          src="https://picsum.photos/200"
+          className="h-32 w-32 rounded-full my-5"
+          src={user.profile_photo}
           alt="Profile"
         ></img>
         <div className="mt-2 mb-8 w-full">
-          <h4 className="px-2 text-xl font-bold text-navy-700 dark:text-white">
-            FirstName LastName
-          </h4>
+          <h3 className="px-2 text-2xl font-bold text-navy-700 dark:text-white">
+            {user.first_name} {user.last_name}
+          </h3>
         </div>
         <div className="grid grid-cols-2 gap-4 mb-6 px-2 w-full">
           <div className="flex flex-col items-start justify-center rounded-2xl bg-clip-border px-3 py-3 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
@@ -79,7 +123,7 @@ function ProfileInfo() {
           <div className="flex flex-col items-start justify-center rounded-2xl bg-clip-border px-3 py-3 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
             <p className="text-sm text-gray-600">First Name</p>
             <input
-              {...register("firstName", {
+              {...register("first_name", {
                 minLength: {
                   value: 5,
                   message: "Name must be at least 5 characters long",
@@ -95,36 +139,27 @@ function ProfileInfo() {
               })}
               className="my-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             />
-            {errors.firstName && (
+            {errors.first_name && (
               <p className=" text-red-600 text-xs">
-                {errors.firstName.message}
+                {errors.first_name.message}
               </p>
             )}
           </div>
 
-          <div className="flex flex-col items-start justify-center rounded-2xl bg-clip-border px-3 py-3 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+          {/* <div className="flex flex-col items-start justify-center rounded-2xl bg-clip-border px-3 py-3 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
             <p className="text-sm text-gray-600">Password</p>
             <input
               type="password"
-              {...register("password", {
-                pattern: {
-                  value:
-                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/i,
-                  message:
-                    "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long",
-                },
-              })}
+              {...register("password", { pattern: { value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/i, message: "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long" } })}
               className="my-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             />
-            {errors.password && (
-              <p className=" text-red-600 text-xs">{errors.password.message}</p>
-            )}
-          </div>
+            {errors.password && (<p className=" text-red-600 text-xs">{errors.password.message}</p>)}
+          </div> */}
 
           <div className="flex flex-col items-start justify-center rounded-2xl bg-clip-border px-3 py-3 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
             <p className="text-sm text-gray-600">Last Name</p>
             <input
-              {...register("lastName", {
+              {...register("last_name", {
                 minLength: {
                   value: 5,
                   message: "Name must be at least 5 characters long",
@@ -140,8 +175,10 @@ function ProfileInfo() {
               })}
               className="my-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             />
-            {errors.lastName && (
-              <p className=" text-red-600 text-xs">{errors.lastName.message}</p>
+            {errors.last_name && (
+              <p className=" text-red-600 text-xs">
+                {errors.last_name.message}
+              </p>
             )}
           </div>
 
@@ -167,6 +204,16 @@ function ProfileInfo() {
           textColor="text-white font-bold"
         ></Button>
       </form>
+      {updateSucceeded && (
+        <p className="mt-10 text-green-600">
+          Profile information updated successfully.
+        </p>
+      )}
+      {updateFailed && (
+        <p className="mt-10 text-red-600">
+          Profile information update failed. Please try again later.
+        </p>
+      )}
     </div>
   );
 }

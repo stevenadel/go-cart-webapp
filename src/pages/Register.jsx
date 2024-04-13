@@ -1,14 +1,17 @@
-import { useForm } from "react-hook-form";
-import Heading from "../components/reusables/Heading";
-import axios from "axios";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import Heading from "../components/reusables/Heading";
+import { axiosInstance } from "../axios";
+
 function Register() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [registerError, setRegisterError] = useState(null);
+  const navigate = useNavigate();
+  const [registerFailed, setRegisterFailed] = useState(false);
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -19,15 +22,14 @@ function Register() {
     formData.append("password", data.password);
     formData.append("shipping_address", data.shipping_address);
     formData.append("profile_photo", data.profile_photo[0]);
-    const url = import.meta.env.VITE_API_URL + "/register/";
-    axios
-      .post(url, formData)
+
+    axiosInstance
+      .post("/register/", formData)
       .then((response) => {
-        console.log(response.data);
+        navigate("/login/");
       })
       .catch((error) => {
-        setRegisterError(error.response.data);
-        console.log(error.response.data);
+        setRegisterFailed(true);
       });
   };
 
@@ -52,16 +54,11 @@ function Register() {
                 message: "Username must contain only alphanumeric characters",
               },
             })}
-            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
+            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-600 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             placeholder="Username"
           />
           {errors.username && (
-            <p className=" text-red-500 text-xs">{errors.username.message}</p>
-          )}
-          {registerError && (
-            <p className="mt-2 text-red-500 text-xs">
-              {registerError.username}
-            </p>
+            <p className=" text-red-600 text-xs">{errors.username.message}</p>
           )}
 
           <input
@@ -80,17 +77,13 @@ function Register() {
                 message: "Name must contain only letters",
               },
             })}
-            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
+            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-600 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             placeholder="First Name"
           />
-          {errors.firstName && (
-            <p className=" text-red-500 text-xs">{errors.firstName.message}</p>
+          {errors.first_name && (
+            <p className=" text-red-600 text-xs">{errors.first_name.message}</p>
           )}
-          {registerError && (
-            <p className="mt-2 text-red-500 text-xs">
-              {registerError.first_name}
-            </p>
-          )}
+
           <input
             {...register("last_name", {
               required: "Name is required",
@@ -107,17 +100,13 @@ function Register() {
                 message: "Name must contain only letters",
               },
             })}
-            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
+            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-600 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             placeholder="Last Name"
           />
-          {errors.lastName && (
-            <p className=" text-red-500 text-xs">{errors.lastName.message}</p>
+          {errors.last_name && (
+            <p className=" text-red-600 text-xs">{errors.last_name.message}</p>
           )}
-          {registerError && (
-            <p className="mt-2 text-red-500 text-xs">
-              {registerError.last_name}
-            </p>
-          )}
+
           <input
             type="email"
             {...register("email", {
@@ -127,15 +116,13 @@ function Register() {
                 message: "Please enter a valid email address",
               },
             })}
-            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
+            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-600 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             placeholder="Email"
           />
           {errors.email && (
-            <p className=" text-red-500 text-xs">{errors.email.message}</p>
+            <p className=" text-red-600 text-xs">{errors.email.message}</p>
           )}
-          {registerError && (
-            <p className="mt-2 text-red-500 text-xs">{registerError.email}</p>
-          )}
+
           <input
             type="password"
             {...register("password", {
@@ -147,32 +134,25 @@ function Register() {
                   "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long",
               },
             })}
-            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
+            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-600 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             placeholder="Password"
           />
           {errors.password && (
-            <p className=" text-red-500 text-xs">{errors.password.message}</p>
+            <p className=" text-red-600 text-xs">{errors.password.message}</p>
           )}
-          {registerError && (
-            <p className="mt-2 text-red-500 text-xs">
-              {registerError.password}
-            </p>
-          )}
+
           <input
-            {...register("shipping_address", {
+            {...register("address", {
               maxLength: {
                 value: 100,
                 message: "Address must not be longer than 100 characters",
               },
             })}
-            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
+            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-600 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             placeholder="Shipping Address"
           />
           {errors.address && (
-            <p className=" text-red-500 text-xs">{errors.address.message}</p>
-          )}
-          {registerError && (
-            <p className="mt-2 text-red-500 text-xs">{registerError.address}</p>
+            <p className=" text-red-600 text-xs">{errors.address.message}</p>
           )}
 
           <input
@@ -180,22 +160,23 @@ function Register() {
             accept="image/*"
             alt="Profile image to upload"
             {...register("profile_photo")}
-            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
+            className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-600 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
           />
-          {registerError && (
-            <p className="mt-2 text-red-500 text-xs">
-              {registerError.profile_photo}
-            </p>
-          )}
+
           <div className="mt-6">
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-primary focus:outline-none active:bg-secondary transition duration-150 ease-in-out"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-semibold rounded-md text-white bg-secondary focus:outline-none active:bg-red-700 transition duration-600 ease-in-out"
             >
               Sign up
             </button>
           </div>
         </form>
+        {registerFailed && (
+          <p className="mt-10 text-red-600">
+            Sign up failed. Please try again later.
+          </p>
+        )}
       </div>
     </div>
   );

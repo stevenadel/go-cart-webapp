@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Heading from "../components/reusables/Heading";
-import axios from "axios";
+import { axiosInstance } from "../axios";
 
 function Login() {
   const {
@@ -8,28 +10,23 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const validData = {
-    username: "esraa",
-    password: "@12345678ASrr",
-  };
+  const navigate = useNavigate();
+  const [loginFailed, setLoginFailed] = useState(false);
 
   const onSubmit = (data) => {
-    const url = import.meta.env.VITE_API_URL + "/login/";
-    // console.log(data);
-    // console.log(url);
-    axios
-      .post(url, data)
+    axiosInstance
+      .post("/login/", data)
       .then((response) => {
-        console.log("response", response);
-        console.log("Token:", response.data.token);
+        localStorage.setItem("token", response.data.token);
+        navigate("/");
       })
       .catch((error) => {
-        console.error("Login failed:", error);
+        setLoginFailed(true);
       });
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
         <Heading title="Sign in to your account" />
         <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
@@ -50,11 +47,11 @@ function Login() {
                 message: "Username must contain only alphanumeric characters",
               },
             })}
-            className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
+            className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-600 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             placeholder="Username"
           />
           {errors.username && (
-            <p className="mt-2 text-red-500 text-xs">
+            <p className="mt-2 text-red-600 text-xs">
               {errors.username.message}
             </p>
           )}
@@ -69,23 +66,28 @@ function Login() {
                   "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long",
               },
             })}
-            className="mt-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
+            className="mt-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-600 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-brandBlue focus:z-10 sm:text-sm sm:leading-5"
             placeholder="Password"
           />
           {errors.password && (
-            <p className="mt-2 text-red-500 text-xs">
+            <p className="mt-2 text-red-600 text-xs">
               {errors.password.message}
             </p>
           )}
           <div className="mt-6">
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-primary focus:outline-none active:bg-secondary transition duration-150 ease-in-out"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-semibold rounded-md text-white bg-secondary focus:outline-none active:bg-red-700 transition duration-500 ease-in-out"
             >
               Sign in
             </button>
           </div>
         </form>
+        {loginFailed && (
+          <p className="mt-10 text-red-600">
+            Login failed. Please check your credentials.
+          </p>
+        )}
       </div>
     </div>
   );
