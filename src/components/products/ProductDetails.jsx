@@ -43,7 +43,7 @@ const ProductDetails = () => {
       <img
         className="h-96 w-full rounded-t-lg object-cover md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
         
-          src={'http://127.0.0.1:8000/' + product.image}
+          src={import.meta.env.VITE_API_URL + product.image}
         
         alt={product.name}
       />

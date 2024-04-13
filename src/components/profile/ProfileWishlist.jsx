@@ -38,7 +38,7 @@ function ProfileWishlist() {
                 className="group relative overflow-hidden rounded-md bg-white shadow-md"
               >
                 <img
-                  src={item.image}
+                  src={import.meta.env.VITE_API_URL + item.image}
                   alt={item.name}
                   className="h-40 w-full object-cover"
                 />

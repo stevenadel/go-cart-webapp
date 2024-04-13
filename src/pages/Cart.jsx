@@ -70,7 +70,7 @@ function Cart() {
               <div key={item.id} className="flex items-start space-x-6">
                 <img
                   className="hidden md:block w-32"
-                  src={'http://127.0.0.1:8000/' + item.product.image}
+                  src={import.meta.env.VITE_API_URL + item.product.image}
                   alt={item.product.name}
                 />
                 <div className="flex-1">
