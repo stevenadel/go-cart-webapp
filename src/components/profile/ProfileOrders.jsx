@@ -12,9 +12,9 @@ const ProfileOrders = () => {
   }, [dispatch]);
 
   return (
-    <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
-      {loading && <div className="text-center text-blue-500 font-bold"><LoadingSpinner /></div>}
-      {error && <div className="text-center text-red-500 font-bold">Error: {error}</div>}
+    <div className="px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
+      {loading && <div className="text-brandYellow"><LoadingSpinner /></div>}
+      {error && <div className="text-red-500">Error: {error}</div>}
 
       {orders.map((order) => (
         <div key={order.id} className="bg-gray-50 dark:bg-gray-800 w-full rounded-lg shadow-md overflow-hidden mb-6">

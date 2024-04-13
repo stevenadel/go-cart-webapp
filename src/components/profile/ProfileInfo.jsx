@@ -59,7 +59,7 @@ function ProfileInfo() {
   };
 
   if (Object.keys(user).length === 0) {
-    return <LoadingSpinner color="brandYellow" />;
+    return <div className="text-brandYellow"><LoadingSpinner /></div>
   }
 
   return (
