@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import "./styles/tailwind.css";
 import "./styles/App.css";
 
@@ -17,7 +17,18 @@ import Categories from "./pages/categories";
 import ProductDetails from "./components/products/ProductDetails";
 import Checkout from "./pages/Checkout";
 
+
+
 function App() {
+  const ProtectedRoute = ({ children }) => {
+    let location = useLocation();
+    const token = localStorage.getItem('token')
+    if (token === null) {
+      return <Navigate to="/login" state={{ from: location }} replace />
+    }
+    return children
+  
+  };
   return (
     <>
       <BrowserRouter>
@@ -28,10 +39,27 @@ function App() {
           <Route path="categories" element={<Categories />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="wishlist" element={<Wishlist />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="orders" element={<Orders />} />
+          <Route path="profile" element={
+                   <ProtectedRoute>
+                   <Profile />
+                   </ProtectedRoute>
+        } />
+          <Route path="wishlist" element={
+                           <ProtectedRoute>
+                           <Wishlist />
+                           </ProtectedRoute>
+        } />
+           <Route path="cart" element={
+           <ProtectedRoute>
+           <Cart/>
+           </ProtectedRoute>} /> 
+          
+
+          <Route path="orders" element={
+                     <ProtectedRoute>
+                     <Orders />
+                     </ProtectedRoute>
+        } />
           <Route path="admin" element={<Admin />} />
           <Route path="products/:productId" element={<ProductDetails />} />
           <Route path="checkout" element={<Checkout />} />
