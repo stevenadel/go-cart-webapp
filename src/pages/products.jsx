@@ -13,9 +13,9 @@ function Products() {
 
   const [page, setPage] = useState(1);
   const pageSize = 10;
-  const esraa=query;
+  const keyword=query;
   useEffect(() => {
-    dispatch(getProductsListThunk({ page, pageSize,esraa }));
+    dispatch(getProductsListThunk({ page, pageSize,keyword }));
 
   }, [dispatch, page, pageSize,query]);
 
