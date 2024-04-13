@@ -1,17 +1,38 @@
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from 'react-router-dom';
+import { axiosInstance } from "../axios";
 import SearchProduct from "./products/SearchProduct";
 
-const profilePic = "https://source.unsplash.com/50x50/?profile";
-
 const Navbar = () => {
+  const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem("token") !== null;
-
   const isActive = (path) => {
     return window.location.pathname === path ? "!text-brandBlue duration-200 ease-in-out" : "";
   };
+
+  const token = localStorage.getItem("token");
+  const isLoggedIn = token !== null;
+  const config = {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  };
+
+  useEffect(() => {
+    axiosInstance
+      .get("/profile", config)
+      .then((response) => {
+        const imageUrl = response.data.profile_photo;
+        if (imageUrl) {
+          response.data.profile_photo = import.meta.env.VITE_API_URL + imageUrl;
+        } else {
+          response.data.profile_photo = "profile-photo.jpg";
+        }
+        setUser(response.data);
+      })
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -62,7 +83,7 @@ const Navbar = () => {
                 </button>
                 <div className="navbar">
                   <Link to="/profile" className="profile-link">
-                    <img src={profilePic} alt="Profile" className="profile-pic" />
+                    <img src={user.profile_photo} alt="Profile" className="profile-pic" />
                   </Link>
                 </div>
               </>
