@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const CategoryCard = ({ data }) => {
   const cardStyle = {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url(${
-      "http://127.0.0.1:8000" + data.image
+      import.meta.env.VITE_API_URL + data.image
     })`,
     backgroundSize: "cover",
     backgroundPosition: "center",
