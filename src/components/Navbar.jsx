@@ -10,7 +10,7 @@ const Navbar = () => {
   const isLoggedIn = localStorage.getItem("token") !== null;
 
   const isActive = (path) => {
-    return window.location.pathname === path ? "text-brandGreen" : "";
+    return window.location.pathname === path ? "!text-brandBlue duration-200 ease-in-out" : "";
   };
 
   const handleLogout = () => {
