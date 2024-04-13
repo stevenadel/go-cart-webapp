@@ -7,11 +7,14 @@ import {
 } from "../store/slices/cartSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import Checkout from "./Checkout";
 
 function Cart() {
   const dispatch = useDispatch();
   const { cartList, isLoading, error } = useSelector((state) => state.cart);
   const [subtotal, setSubtotal] = useState(0);
+  const [cartId, setCartId] = useState(null);
+
   const handleDeleteItem = async (itemId) => {
     await dispatch(deleteCartItemThunk(itemId));
     dispatch(getCartThunk());
@@ -20,6 +23,7 @@ function Cart() {
   useEffect(() => {
     dispatch(getCartThunk());
   }, [dispatch]);
+
   useEffect(() => {
     // Calculate subtotal whenever cartList changes
     let total = 0;
@@ -28,6 +32,7 @@ function Cart() {
     });
     setSubtotal(total);
   }, [cartList]);
+
   const handleQuantityChange = (itemId, newQuantity) => {
     dispatch(updateCartItemQuantityThunk({ itemId, quantity: newQuantity }));
     dispatch(getCartThunk());
@@ -36,6 +41,15 @@ function Cart() {
   const calculateTotal = (item) => {
     return item.product.price * item.quantity;
   };
+
+  // Update cartId when cartList changes
+  useEffect(() => {
+    if (cartList.length > 0) {
+      setCartId(cartList[0].cart);
+    } else {
+      setCartId(null);
+    }
+  }, [cartList]);
 
   return (
     <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
@@ -134,9 +148,8 @@ function Cart() {
                 {/* Example total including shipping */}
               </div>
             </div>
-            <button className="bg-primary text-white w-full mt-2 py-2 rounded-md shadow-md hover:bg-primary-dark transition duration-300">
-              Checkout
-            </button>
+            {/* Pass cartId as a prop to Checkout */}
+            <Checkout dispatch={dispatch} cartId={cartId} />
           </div>
         </>
       )}

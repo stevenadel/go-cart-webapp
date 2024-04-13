@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./styles/tailwind.css";
 import "./styles/App.css";
+
 import Home from "./pages/Home";
 import Products from "./pages/products";
 import Login from "./pages/Login";
@@ -14,7 +15,7 @@ import PageNotFound from "./pages/PageNotFound";
 import Navbar from "./components/Navbar";
 import Categories from "./pages/categories";
 import ProductDetails from "./components/products/ProductDetails";
-import SearchProduct from "./components/products/SearchProduct";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
           <Route path="orders" element={<Orders />} />
           <Route path="admin" element={<Admin />} />
           <Route path="products/:productId" element={<ProductDetails />} />
-          <Route path="/search" element={<SearchProduct />} />
+          <Route path="checkout" element={<Checkout />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

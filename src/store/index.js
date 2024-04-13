@@ -3,7 +3,8 @@ import productReducer from "./slices/productSlice";
 import productDetailsReducer from "./slices/productDetailsSlice";
 import wishlistReducer from "./slices/wishlistSlice";
 import categoryReducer from "./slices/categorySlice";
-
+import orderReducer from "./slices/OrderSlice";
+import searchReducer from "./slices/SearchSlice";
 import cartReducer from "./slices/cartSlice";
 
 export default configureStore({
@@ -11,7 +12,9 @@ export default configureStore({
     product: productReducer,
     productDetails: productDetailsReducer,
     wishlist: wishlistReducer,
+    category: categoryReducer,
     cart: cartReducer,
-    category: categoryReducer
+    order: orderReducer,
+    Search: searchReducer,
   },
 });
