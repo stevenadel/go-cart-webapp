@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const baseURL = "http://localhost:8000";
+const baseURL = import.meta.env.VITE_API_URL;
 
 export const fetchWishlist = createAsyncThunk(
   "wishlist/fetchWishlist",
@@ -39,27 +39,6 @@ export const addToWishlist = createAsyncThunk(
     );
   }
 );
-
-// export const removeFromWishlist = createAsyncThunk(
-//   "wishlist/removeFromWishlist",
-//   async (productid) => {
-//     const token = localStorage.getItem("token");
-
-//     const config = {
-//       headers: {
-//         Authorization: `Token ${token}`,
-//       },
-//     };
-//     await axios.delete(
-//       `${baseURL}/wishlist`,
-//       {
-//         product_id: productid,
-//         // data: { product_id },
-//       },
-//       config
-//     );
-//   }
-// );
 
 export const removeFromWishlist = createAsyncThunk(
   "wishlist/removeFromWishlist",
