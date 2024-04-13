@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductDetailsThunk } from "../../store/slices/productDetailsSlice";
 import Button from "../reusables/Button";
 import LoadingSpinner from "../reusables/LoadingSpinner";
+import { addToCartThunk } from "../../store/slices/cartSlice";
+
 const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
@@ -12,7 +14,22 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(getProductDetailsThunk(productId));
   }, [dispatch, productId]);
-
+  const handleAddToCart = (productId) => {
+    dispatch(addToCartThunk({ productId: productId, quantity: 1 }))
+      .then((response) => {
+        console.log("Add to cart successful:", response);
+      })
+      .catch((error) => {
+        console.error("Add to cart failed:", error);
+        if (error.response && error.response.status === 401) {
+          console.log("Unauthorized error detected");
+          
+        } else {
+          console.log("Other error detected");
+          
+        }
+      });
+  };
   if (!product) {
     return <LoadingSpinner />;
   }
@@ -25,9 +42,9 @@ const ProductDetails = () => {
     <div className="flex flex-col rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 md:max-w-xl md:flex-row">
       <img
         className="h-96 w-full rounded-t-lg object-cover md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-        src={
-          "https://i.pinimg.com/564x/f5/e4/ad/f5e4adf845f87fe7c1f126cdd22b1d4d.jpg"
-        }
+        
+          src={'http://127.0.0.1:8000/' + product.image}
+        
         alt={product.name}
       />
       <div className="flex flex-col justify-start p-6">
@@ -45,6 +62,7 @@ const ProductDetails = () => {
             text="Add to Cart"
             bgColor="bg-primary"
             textColor="text-white"
+            handler={() => handleAddToCart(product.id)}
           />
         </div>
       </div>

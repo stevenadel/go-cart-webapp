@@ -69,7 +69,7 @@ const ProductCard = ({ item }) => {
       <div className="group relative" key={item.id}>
         <div>
           <img
-            // src={'http://127.0.0.1:8000/'+item.image}
+             src={'http://127.0.0.1:8000/'+item.image}
             alt="product"
             className="h-[180px] w-[260px] object-cover rounded-md"
           />

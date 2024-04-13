@@ -6,7 +6,14 @@ const baseURL = "http://localhost:8000";
 export const fetchWishlist = createAsyncThunk(
   "wishlist/fetchWishlist",
   async () => {
-    const response = await axios.get(`${baseURL}/wishlist`);
+    const token = localStorage.getItem("token");
+
+    const config = {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    };
+    const response = await axios.get(`${baseURL}/wishlist`, config);
     console.log(response.data);
     return response.data;
   }
@@ -15,21 +22,35 @@ export const fetchWishlist = createAsyncThunk(
 export const addToWishlist = createAsyncThunk(
   "wishlist/addToWishlist",
   async (productId) => {
+    const token = localStorage.getItem("token");
+
+    const config = {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    };
     console.log(productId);
     await axios.post(`${baseURL}/wishlist`, {
       product_id: productId,
-    });
+    }, config);
   }
 );
 
 export const removeFromWishlist = createAsyncThunk(
   "wishlist/removeFromWishlist",
   async (productid) => {
+    const token = localStorage.getItem("token");
+
+    const config = {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    };
     const product_id = Number(productid);
     console.log(typeof product_id);
     await axios.delete(`${baseURL}/wishlist`, {
       data: { product_id },
-    });
+    }, config);
   }
 );
 

@@ -3,6 +3,7 @@ import Heading from "../components/reusables/Heading";
 import ProductsList from "../components/products/ProductsList";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsListThunk } from "../store/slices/productSlice";
+import LoadingSpinner from "../components/reusables/LoadingSpinner"
 
 function Products() {
   const dispatch = useDispatch();
@@ -25,7 +26,8 @@ function Products() {
   };
 
   if (isLoading) {
-    return <p> loading</p>;
+    
+    return <LoadingSpinner/>;
   }
 
   if (error) {
