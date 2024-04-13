@@ -1,46 +1,20 @@
-import React from "react";
-import styled from "styled-components";
+import {
+  Footer,
+  FooterCopyright,
+  FooterLink,
+  FooterLinkGroup,
+} from "flowbite-react";
 
-// Styled components
-const FooterContainer = styled.footer`
-  background-color: #f8f9fa;
-  padding: 40px 20px;
-  text-align: center;
-  margin-top: 60px; /* Adding top margin */
-`;
-
-const FooterText = styled.p`
-  margin: 0;
-  color: #555;
-  font-size: 16px;
-  line-height: 1.6;
-`;
-
-const BrandText = styled.span`
-  font-weight: bold;
-  color: #333;
-`;
-
-const EmphasisText = styled.span`
-  font-style: italic;
-  color: #666;
-`;
-
-function Footer() {
+export default function FooterComponent() {
   return (
-    <FooterContainer>
-      <FooterText>
-        Elevate your shopping experience with <BrandText>GO-Cart</BrandText>.
-        Discover hand-picked products crafted to perfection. Explore our
-        collection today for the epitome of style, quality, and convenience.
-        Your satisfaction is our commitment.
-        <EmphasisText>
-          {" "}
-          Join us in shaping a brighter future, one purchase at a time.
-        </EmphasisText>
-      </FooterText>
-    </FooterContainer>
+    <Footer container>
+      <FooterCopyright href="#" by="ITI OSAD 44™" year={2024} />
+      <FooterLinkGroup>
+        <FooterLink href="#">About</FooterLink>
+        <FooterLink href="#">Privacy Policy</FooterLink>
+        <FooterLink href="#">Licensing</FooterLink>
+        <FooterLink href="#">Contact</FooterLink>
+      </FooterLinkGroup>
+    </Footer>
   );
 }
-
-export default Footer;
