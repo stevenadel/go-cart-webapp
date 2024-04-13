@@ -3,10 +3,17 @@ import { axiosInstance } from "../../axios";
 
 export const getProductsListThunk = createAsyncThunk(
   "products/getProducts",
-  async ({ page, pageSize }) => {
+  async ({ page, pageSize,esraa }) => {
+    let path= `/products/?page=${page}&pageSize=${pageSize}`;
+
+    if (esraa){
+
+      path=`/search?q=${esraa}`
+    }
     try {
       const res = await axiosInstance.get(
-        `/products/?page=${page}&pageSize=${pageSize}`
+        path
+    
       );
       return {
         results: res.data.results,
