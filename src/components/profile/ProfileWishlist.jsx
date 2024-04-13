@@ -6,6 +6,7 @@ import {
 } from "../../store/slices/wishlistSlice";
 import LoadingSpinner from "../reusables/LoadingSpinner";
 
+
 function ProfileWishlist() {
   const dispatch = useDispatch();
   const wishlist = useSelector((state) => state.wishlist.list);
@@ -26,6 +27,7 @@ function ProfileWishlist() {
       <h1>Wishlist</h1>
       {isLoading && <LoadingSpinner />}
       {error && <p>Error: {error}</p>}
+
       {!isLoading && !error && wishlist?.length === 0 && (
         <p>Your wishlist is empty</p>
       )}
