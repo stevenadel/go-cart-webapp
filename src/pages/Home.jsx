@@ -1,12 +1,9 @@
 import CategoryList from "../components/categories/CategoryList";
-import Footer from "../components/Footer";
 import Heading from "../components/reusables/Heading";
 import ProductsList from "../components/products/ProductsList";
 import Services from "../components/services";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { getProductsListThunk } from "../store/slices/productSlice";
 
 const popularCategories = [
   {
@@ -56,10 +53,6 @@ function Home() {
           <Heading title="Categories" subtitle={"Explore Our Categories"} />
         </Link>
         <CategoryList categoriesData={popularCategories} />
-      </div>
-
-      <div id="footerSection">
-        <Footer />
       </div>
     </div>
   );
