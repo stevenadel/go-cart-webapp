@@ -34,7 +34,7 @@ function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
         <Heading title="Sign up to create a new account" />
         <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
