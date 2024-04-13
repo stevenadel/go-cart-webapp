@@ -15,6 +15,7 @@ import Navbar from "./components/Navbar";
 import Categories from "./pages/categories";
 import ProductDetails from "./components/products/ProductDetails";
 import SearchProduct from "./components/products/SearchProduct";
+
 function App() {
   return (
     <>
@@ -31,8 +32,8 @@ function App() {
           <Route path="cart" element={<Cart />} />
           <Route path="orders" element={<Orders />} />
           <Route path="admin" element={<Admin />} />
-          <Route path="products/:productId" element={<ProductDetails />}/>
-          <Route path="/search" element={<SearchProduct />} /> 
+          <Route path="products/:productId" element={<ProductDetails />} />
+          <Route path="/search" element={<SearchProduct />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
