@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { getProductsListThunk } from "../../store/slices/productSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCartThunk } from "../../store/slices/cartSlice";
 import Button from "../reusables/Button";
 
@@ -66,7 +65,7 @@ const ProductCard = ({ item }) => {
           </div>
         </div>
       )}
-      <div className="group relative" key={item.id}>
+      <div className="group relative my-5" key={item.id}>
         <div>
           <img
             // src={'http://127.0.0.1:8000/'+item.image}

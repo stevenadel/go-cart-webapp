@@ -1,19 +1,15 @@
 import React from "react";
 import Button from "../reusables/Button";
-import { useDispatch } from "react-redux";
-import { getProductsByCategoryThunk } from "../../store/slices/categorySlice";
+import { Link } from "react-router-dom";
 
 const CategoryCard = ({ data }) => {
   const cardStyle = {
-    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url(${'http://127.0.0.1:8000'+data.image})`,
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url(${
+      "http://127.0.0.1:8000" + data.image
+    })`,
     backgroundSize: "cover",
     backgroundPosition: "center",
   };
-  const dispatch = useDispatch();
-  const handleBrowseClick = (category_id) => {
-    dispatch(getProductsByCategoryThunk(category_id));
-  };
-
 
   return (
     <div className="py-8">
@@ -29,12 +25,13 @@ const CategoryCard = ({ data }) => {
               <p className="text-4xl xl:text-5xl font-bold opacity-50 mb-2">
                 {data.name}
               </p>
-              <Button
-                text="Browse"
-                bgColor={"bg-primary"}
-                textColor={"text-white"}
-                handler={()=> handleBrowseClick(data.id)}
-              />
+              <Link to={`/categories/${data.id}`}>
+                <Button
+                  text="Browse"
+                  bgColor={"bg-primary"}
+                  textColor={"text-white"}
+                />
+              </Link>
             </div>
           </div>
         </div>

@@ -25,9 +25,8 @@ function Cart() {
   }, [dispatch]);
 
   useEffect(() => {
-    // Calculate subtotal whenever cartList changes
     let total = 0;
-    cartList.forEach((item) => {
+    cartList?.forEach((item) => {
       total += item.product.price * item.quantity;
     });
     setSubtotal(total);
@@ -44,7 +43,7 @@ function Cart() {
 
   // Update cartId when cartList changes
   useEffect(() => {
-    if (cartList.length > 0) {
+    if (cartList?.length > 0) {
       setCartId(cartList[0].cart);
     } else {
       setCartId(null);
