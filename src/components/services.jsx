@@ -11,24 +11,24 @@ const ServiceData = [
     id: 1,
     icon: <FaCarSide className="text-4xl md:text-5xl text-primary" />,
     title: "Free Shipping",
-    description: "Free Shipping On All Order",
+    description: "On All Orders",
   },
   {
     id: 2,
-    icon: <FaCheckCircle className="text-4xl md:text-5xl text-primary" />,
+    icon: <FaCheckCircle className="text-4xl md:text-5xl text-brandGreen" />,
     title: "Safe Money ",
     description: "30 Days Money Back",
   },
   {
     id: 3,
-    icon: <FaWallet className="text-4xl md:text-5xl text-primary" />,
+    icon: <FaWallet className="text-4xl md:text-5xl text-brandYellow" />,
     title: "Secure Payment",
-    description: "All Payment Secure",
+    description: "All Payments Secure",
   },
   {
     id: 4,
-    icon: <FaHeadphonesAlt className="text-4xl md:text-5xl text-primary" />,
-    title: "Online Supoort 24/7",
+    icon: <FaHeadphonesAlt className="text-4xl md:text-5xl text-brandBlue" />,
+    title: "Online Support",
     description: "Technical Support 24/7",
   },
 ];
@@ -36,8 +36,8 @@ const ServiceData = [
 const Services = () => {
   return (
     <div>
-      <div className="container m-10 md:my-20 ml-4 mt-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 gap-y-8">
+      <div className="container m-10 md:my-20 mt-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 gap-y-8">
           {ServiceData.map((data) => (
             <div
               key={data.id}
