@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductDetailsThunk } from "../../store/slices/productDetailsSlice";
 import Button from "../reusables/Button";
 import LoadingSpinner from "../reusables/LoadingSpinner";
-import { addToCartThunk } from "../../store/slices/cartSlice";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -14,22 +13,7 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(getProductDetailsThunk(productId));
   }, [dispatch, productId]);
-  const handleAddToCart = (productId) => {
-    dispatch(addToCartThunk({ productId: productId, quantity: 1 }))
-      .then((response) => {
-        console.log("Add to cart successful:", response);
-      })
-      .catch((error) => {
-        console.error("Add to cart failed:", error);
-        if (error.response && error.response.status === 401) {
-          console.log("Unauthorized error detected");
-          
-        } else {
-          console.log("Other error detected");
-          
-        }
-      });
-  };
+
   if (!product) {
     return <LoadingSpinner />;
   }
@@ -39,31 +23,68 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="flex flex-col rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 md:max-w-xl md:flex-row">
-      <img
-        className="h-96 w-full rounded-t-lg object-cover md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-        
-          src={import.meta.env.VITE_API_URL + product.image}
-        
-        alt={product.name}
-      />
-      <div className="flex flex-col justify-start p-6">
-        <h5 className="mb-2 text-xl font-medium text-neutral-800 dark:text-neutral-50">
-          {product.name}
-        </h5>
-        <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-          {product.description.substring(0, 100)}...
-        </p>
-        <div className="flex items-center space-x-4">
-          <span className="text-sm text-neutral-500 dark:text-neutral-300">
-            Price: ${product.price}
-          </span>
-          <Button
-            text="Add to Cart"
-            bgColor="bg-primary"
-            textColor="text-white"
-            handler={() => handleAddToCart(product.id)}
-          />
+    <div class="bg-gray-100 dark:bg-gray-800 py-8 flex justify-center">
+      <div class="max-w-4xl w-full px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row mx-4">
+          <div class="md:flex-1 px-4 flex justify-center items-center">
+            <div class="max-w-lg">
+              <div class="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
+                <img
+                  class="w-full h-full object-cover"
+                  src={import.meta.env.VITE_API_URL + product.image}
+                  alt={product.name}
+                />
+              </div>
+            </div>
+          </div>
+          <div class="md:flex-1 px-4 py-28">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+              {product.name}
+            </h2>
+
+            <div>
+              <span class="font-bold text-gray-700 dark:text-gray-300">
+                Product Description:
+              </span>
+              <p class="text-gray-600 dark:text-gray-300 text-sm mt-2">
+                {product.description}
+              </p>
+            </div>
+            <div class="flex mb-4 py-9">
+              <div class="mr-4">
+                <span class="font-bold text-gray-700 dark:text-gray-300">
+                  Price:
+                </span>
+                <span class="text-gray-600 dark:text-gray-300">
+                  ${product.price}
+                </span>
+              </div>
+              <div>
+                <span class="font-bold text-gray-700 dark:text-gray-300">
+                  Availability In Stock:
+                </span>
+                <span class="text-gray-600 dark:text-gray-300">
+                  {product.stock}
+                </span>
+              </div>
+            </div>
+            <div class="flex -mx-2 mb-4">
+              <div class="w-1/2 px-2">
+                <Button
+                  text="Add to Wishlist"
+                  bgColor="bg-primary"
+                  textColor="text-white"
+                />
+              </div>
+              <div class="w-1/2 px-2">
+                <Button
+                  text="Add to Cart"
+                  bgColor="bg-primary"
+                  textColor="text-white"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

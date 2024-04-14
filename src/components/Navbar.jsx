@@ -41,15 +41,17 @@ const Navbar = () => {
 
   return (
     <div className="bg-white dark:bg-gray-900 dark:text-white duration-200 relative z-50 mb-10 ">
-      <div className="container flex justify-between items-center py-4">
-        <div className="flex items-center gap-4">
-          <button className="text-primary font-semibold tracking-widest text-2xl uppercase sm:text-4xl">
+      <div className="container flex justify-between items-center p-4 gap-5">
+        <div className="flex items-center">
+          <button className="text-primary font-semibold tracking-widest text-3xl uppercase sm:text-4xl">
             <Link to="/">Go-Cart</Link>
           </button>
         </div>
-        <div className="flex items-center gap-6">
-          <SearchProduct />
-          <div className="flex items-center">
+        <div className="flex items-between gap-6 flex-wrap sm:flex-nowrap">
+          <div className="flex-grow">
+            <SearchProduct />
+          </div>
+          <div className="flex items-center order-1 sm:order-2">
             {!isLoggedIn && (
               <>
                 <Link
