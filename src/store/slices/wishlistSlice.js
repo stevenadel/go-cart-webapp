@@ -61,6 +61,7 @@ export const removeFromWishlist = createAsyncThunk(
     } catch (error) {
       console.error("Error removing from wishlist:", error);
       throw error;
+    }
   }
 );
 
