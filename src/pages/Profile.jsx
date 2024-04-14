@@ -12,7 +12,7 @@ function Profile() {
 
   return (
     <div className="flex flex-col">
-      <ul className="flex mb-4 border-b border-gray-600 justify-center gap-20">
+      <ul className="flex mb-4 border-b border-gray-600 justify-around">
         <li
           className={`px-3 py-2 font-semibold text-xl cursor-pointer ${
             activeTab === "profile-info" ? "text-brandBlue" : "text-gray-600"

@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../axios";
 
-// Thunk to fetch cart data
 export const getCartThunk = createAsyncThunk("cart/getCart", async () => {
   try {
     const res = await axiosInstance.get("/cart/");
@@ -12,7 +11,6 @@ export const getCartThunk = createAsyncThunk("cart/getCart", async () => {
   }
 });
 
-// Thunk to add an item to the cart
 export const addToCartThunk = createAsyncThunk(
   "cart/addToCart",
   async ({ productId, quantity }, { getState, rejectWithValue }) => {
@@ -49,10 +47,10 @@ export const deleteCartItemThunk = createAsyncThunk(
         headers: {
           Authorization: `Token ${token}`,
         },
-        data: { item_id: itemId }, // Send item ID in the request body
+        data: { item_id: itemId },
       };
-      await axiosInstance.delete(`/cart/`, config); // Remove item ID from URL
-      return itemId; // Return the deleted item ID
+      await axiosInstance.delete(`/cart/`, config);
+      return itemId;
     } catch (error) {
       console.log("Delete item error:", error);
       throw error;
@@ -74,7 +72,7 @@ export const updateCartItemQuantityThunk = createAsyncThunk(
         quantity: quantity,
       };
       const res = await axiosInstance.patch(`/cart/`, data, config);
-      return res.data; // Return updated cart item
+      return res.data;
     } catch (error) {
       console.log("Update quantity error:", error);
       throw error;
@@ -102,8 +100,7 @@ const initialState = {
   isLoading: false,
   error: "",
   auth: {
-    token: null, // Initialize token to null
-    // Other authentication-related state variables if needed
+    token: null,
   },
 };
 
@@ -111,14 +108,12 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    // Any additional reducers can be added here
     setToken: (state, action) => {
       state.auth.token = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      // Fetch cart data reducers
       .addCase(getCartThunk.pending, (state) => {
         state.isLoading = true;
       })
@@ -130,7 +125,6 @@ const cartSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message;
       })
-      // Add to cart reducers
       .addCase(addToCartThunk.pending, (state) => {
         state.isLoading = true;
       })
@@ -140,10 +134,10 @@ const cartSlice = createSlice({
       })
       .addCase(addToCartThunk.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload; // Set error message from rejectWithValue
+        state.error = action.payload;
       });
   },
 });
 
-export const { setToken } = cartSlice.actions; // Export action creator for setting token
+export const { setToken } = cartSlice.actions;
 export default cartSlice.reducer;

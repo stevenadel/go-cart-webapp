@@ -42,7 +42,6 @@ function Cart() {
     return item.product.price * item.quantity;
   };
 
-  // Update cartId when cartList changes
   useEffect(() => {
     if (cartList?.length > 0) {
       setCartId(cartList[0].cart);
@@ -121,15 +120,13 @@ function Cart() {
               </div>
               <div className="flex justify-between items-center mt-2">
                 <span>Shipping:</span>
-                <span>$5.00</span> {/* Example shipping cost */}
+                <span>$5.00</span>
               </div>
               <div className="flex justify-between items-center mt-2 border-t border-gray-200 pt-2">
                 <span>Total:</span>
                 <span>{`$${subtotal + 5}`}</span>{" "}
-                {/* Example total including shipping */}
               </div>
             </div>
-            {/* Pass cartId as a prop to Checkout */}
             <Checkout dispatch={dispatch} cartId={cartId} />
           </div>
         </div>

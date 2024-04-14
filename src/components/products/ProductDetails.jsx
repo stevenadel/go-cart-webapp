@@ -1,18 +1,26 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetailsThunk } from "../../store/slices/productDetailsSlice";
+import { addToCartThunk } from "../../store/slices/cartSlice";
 import Button from "../reusables/Button";
 import LoadingSpinner from "../reusables/LoadingSpinner";
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { product, error } = useSelector((state) => state.productDetails);
 
   useEffect(() => {
     dispatch(getProductDetailsThunk(productId));
   }, [dispatch, productId]);
+  const handleAddToCart = (productId) => {
+    dispatch(addToCartThunk({ productId: productId, quantity: 1 }))
+      .then((response) => {
+        navigate("/");
+      })
+  };
 
   if (!product) {
     return <LoadingSpinner />;
@@ -68,21 +76,13 @@ const ProductDetails = () => {
                 </span>
               </div>
             </div>
-            <div class="flex -mx-2 mb-4">
-              <div class="w-1/2 px-2">
-                <Button
-                  text="Add to Wishlist"
-                  bgColor="bg-primary"
-                  textColor="text-white"
-                />
-              </div>
-              <div class="w-1/2 px-2">
-                <Button
-                  text="Add to Cart"
-                  bgColor="bg-primary"
-                  textColor="text-white"
-                />
-              </div>
+            <div class="w-1/2 px-2">
+              <Button
+                text="Add to Cart"
+                bgColor="bg-primary"
+                textColor="text-white"
+                handler={() => handleAddToCart(product.id)}
+              />
             </div>
           </div>
         </div>

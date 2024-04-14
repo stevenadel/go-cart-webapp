@@ -40,27 +40,6 @@ export const addToWishlist = createAsyncThunk(
   }
 );
 
-// export const removeFromWishlist = createAsyncThunk(
-//   "wishlist/removeFromWishlist",
-//   async (productid) => {
-//     const token = localStorage.getItem("token");
-
-//     const config = {
-//       headers: {
-//         Authorization: `Token ${token}`,
-//       },
-//     };
-//     await axios.delete(
-//       `${baseURL}/wishlist`,
-//       {
-//         product_id: productid,
-//         // data: { product_id },
-//       },
-//       config
-//     );
-//   }
-// );
-
 export const removeFromWishlist = createAsyncThunk(
   "wishlist/removeFromWishlist",
   async (productId) => {
@@ -69,7 +48,7 @@ export const removeFromWishlist = createAsyncThunk(
     const config = {
       headers: {
         Authorization: `Token ${token}`,
-        "Content-Type": "application/json", // Add Content-Type header
+        "Content-Type": "application/json",
       },
     };
 
@@ -81,8 +60,7 @@ export const removeFromWishlist = createAsyncThunk(
       });
     } catch (error) {
       console.error("Error removing from wishlist:", error);
-      throw error; // Rethrow the error to handle it in the component
-    }
+      throw error;
   }
 );
 
@@ -96,7 +74,6 @@ const wishlistSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // Fetch wishlist reducers
       .addCase(fetchWishlist.pending, (state) => {
         state.isLoading = true;
       })
@@ -108,26 +85,22 @@ const wishlistSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message;
       })
-      // Add to wishlist reducers
       .addCase(addToWishlist.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(addToWishlist.fulfilled, (state, action) => {
         state.isLoading = false;
-        // Update the wishlist after adding the product (optional)
         state.list = action.payload;
       })
       .addCase(addToWishlist.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       })
-      // Remove from wishlist reducers
       .addCase(removeFromWishlist.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(removeFromWishlist.fulfilled, (state, action) => {
         state.isLoading = false;
-        // Update the wishlist after removing the product (optional)
         state.list = action.payload;
       })
       .addCase(removeFromWishlist.rejected, (state, action) => {

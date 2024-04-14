@@ -20,11 +20,11 @@ function Products() {
   }, [dispatch, page, pageSize,query]);
 
   const handleNextPage = () => {
-    setPage(page + 1); // Increment page directly
+    setPage(page + 1);
   };
 
   const handlePreviousPage = () => {
-    setPage(page - 1); // Decrement page directly
+    setPage(page - 1);
   };
 
   if (isLoading) {

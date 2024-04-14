@@ -10,7 +10,7 @@ function CategoryList({ Popular = false }) {
   const { categoryList, isLoading, error, currentPage, totalPages } =
     useSelector((state) => state.category);
   const [page, setPage] = useState(1);
-  const pageSize = 10; // Adjust page size as per your requirement
+  const pageSize = 10;
 
   useEffect(() => {
     dispatch(getCategoryListThunk({ page, pageSize }));
