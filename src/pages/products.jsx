@@ -3,21 +3,20 @@ import Heading from "../components/reusables/Heading";
 import ProductsList from "../components/products/ProductsList";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsListThunk } from "../store/slices/productSlice";
-import LoadingSpinner from "../components/reusables/LoadingSpinner"
+import LoadingSpinner from "../components/reusables/LoadingSpinner";
 
 function Products() {
   const dispatch = useDispatch();
   const { productsList, isLoading, error, currentPage, totalPages } =
     useSelector((state) => state.product);
-    const query = useSelector((state) => state.Search.query);
+  const query = useSelector((state) => state.Search.query);
 
   const [page, setPage] = useState(1);
   const pageSize = 10;
-  const keyword=query;
+  const keyword = query;
   useEffect(() => {
-    dispatch(getProductsListThunk({ page, pageSize,keyword }));
-
-  }, [dispatch, page, pageSize,query]);
+    dispatch(getProductsListThunk({ page, pageSize, keyword }));
+  }, [dispatch, page, pageSize, query]);
 
   const handleNextPage = () => {
     setPage(page + 1);
@@ -28,14 +27,13 @@ function Products() {
   };
 
   if (isLoading) {
-    
-    return <LoadingSpinner/>;
+    return <LoadingSpinner />;
   }
 
   if (error) {
     return <p>Error: {error.message}</p>;
   }
-  
+
   if (!productsList || productsList.length === 0) {
     return <p>No products found</p>;
   }

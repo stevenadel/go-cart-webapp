@@ -3,12 +3,22 @@ import Heading from "../components/reusables/Heading";
 import ProductsList from "../components/products/ProductsList";
 import Services from "../components/services";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { getProductsListThunk } from "../store/slices/productSlice";
 
 function Home() {
+  const dispatch = useDispatch();
+  const page = 1;
+  const pageSize = 4;
+  const keyword = "";
   const { productsList, isLoading, error } = useSelector(
     (state) => state.product
   );
+
+  useEffect(() => {
+    dispatch(getProductsListThunk({ page, pageSize, keyword }));
+  }, [dispatch]);
 
   return (
     <div>
